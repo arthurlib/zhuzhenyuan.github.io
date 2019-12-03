@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>py 入门.md | Hexo</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="py 入门.md | Hexo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="about">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;about&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="about">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-03T09:20:44.141Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="https://i.loli.net/2019/12/03/NYwVz9UOxmWZ4rR.png">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/github.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="https://i.loli.net/2019/12/03/NYwVz9UOxmWZ4rR.png" />
+</a>
+<div class="author">
+    <span>John Doe</span>
+</div>
+
+<div class="icon">
+    
+        
+    
+        
+        <a title="github" href="https://github.com/yelog" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(129)</small></div></li>
+    
+        
+            
+            <li><div data-rel="algorithm">algorithm<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux"><i class="fold iconfont icon-right"></i>linux<small>(22)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="cmd">cmd<small>(11)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="others">others<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="python"><i class="fold iconfont icon-right"></i>python<small>(64)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="built-in">built-in<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="design_patterns">design_patterns<small>(19)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="libs">libs<small>(22)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="raspberry">raspberry<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="server"><i class="fold iconfont icon-right"></i>server<small>(17)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="docker">docker<small>(15)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="k8s">k8s<small>(1)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="database"><i class="fold iconfont icon-right"></i>database<small>(1)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="mongo">mongo<small>(1)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="129">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%2001%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E6%A8%A1%E6%9D%BF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 01背包问题模板.md">algorithm 01背包问题模板.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20list/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm list.md">algorithm list.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20queue/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm queue.md">algorithm queue.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20stack/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm stack.md">algorithm stack.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 二叉搜索树.md">algorithm 二叉搜索树.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 二叉树遍历.md">algorithm 二叉树遍历.md</span>
+            <span class="post-date" title="2019-12-02 14:52:03">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E5%90%84%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 各种排序算法.md">algorithm 各种排序算法.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E5%9F%83%E6%8B%89%E6%89%98%E8%89%B2%E5%B0%BC%E7%AD%9B%E9%80%89%E6%B3%95/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 埃拉托色尼筛选法.md">algorithm 埃拉托色尼筛选法.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E6%A8%A1%E6%9D%BF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 多重背包问题模板.md">algorithm 多重背包问题模板.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E5%A4%A7%E6%95%B0%E8%BF%90%E7%AE%97%E6%A8%A1%E6%9D%BF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 大数运算模板.md">algorithm 大数运算模板.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E6%A8%A1%E6%9D%BF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 完全背包问题模板.md">algorithm 完全背包问题模板.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E6%9C%80%E5%A4%A7%E5%A0%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 最大堆.md">algorithm 最大堆.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%8F%82%E8%80%83%E6%A8%A1%E6%9D%BF/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 线段树参考模板.md">algorithm 线段树参考模板.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="algorithm "
+           href="/2019/12/02/deploy/algorithm/algorithm%20%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E6%A8%A1%E7%89%88/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="algorithm 背包问题模版.md">algorithm 背包问题模版.md</span>
+            <span class="post-date" title="2019-12-02 14:54:01">2019/12/02</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20Ubuntu%E5%AE%89%E8%A3%85Jdk%E5%92%8CTomcat/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux Ubuntu安装Jdk和Tomcat.md">linux Ubuntu安装Jdk和Tomcat.md</span>
+            <span class="post-date" title="2019-12-03 12:48:05">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20aliyun_ubuntu%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%96%87/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux aliyun_ubuntu设置中文.md">linux aliyun_ubuntu设置中文.md</span>
+            <span class="post-date" title="2019-12-03 12:28:08">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20memcached/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux memcached.md">linux memcached.md</span>
+            <span class="post-date" title="2019-12-03 12:32:12">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20opencv/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux opencv.md">linux opencv.md</span>
+            <span class="post-date" title="2019-12-03 12:48:36">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20redis/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux redis.md">linux redis.md</span>
+            <span class="post-date" title="2019-12-03 12:47:00">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20shell/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux shell.md">linux shell.md</span>
+            <span class="post-date" title="2019-12-03 12:12:55">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20ubuntu%E4%B8%AD%E5%AE%B6%E7%9B%AE%E5%BD%95%E4%B8%AD%E6%96%87%E6%94%B9%E8%8B%B1%E6%96%87/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux ubuntu中家目录中文改英文.md">linux ubuntu中家目录中文改英文.md</span>
+            <span class="post-date" title="2019-12-03 14:13:06">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20%E5%8D%B8%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E7%9B%BE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux 卸载阿里云云盾.md">linux 卸载阿里云云盾.md</span>
+            <span class="post-date" title="2019-12-03 11:27:47">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20%E5%AE%89%E8%A3%85zsh/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux 安装zsh.md">linux 安装zsh.md</span>
+            <span class="post-date" title="2019-12-03 11:22:32">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20%E7%BB%88%E7%AB%AF%E8%BE%93%E5%87%BA%E5%B8%A6%E9%A2%9C%E8%89%B2%E7%9A%84%E5%AD%97%E7%AC%A6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux 终端输出带颜色的字符.md">linux 终端输出带颜色的字符.md</span>
+            <span class="post-date" title="2019-12-03 12:31:10">2019/12/03</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/12/03/deploy/linux/linux%20%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux 设置代理.md">linux 设置代理.md</span>
+            <span class="post-date" title="2019-12-03 12:15:16">2019/12/03</span>
+        </a>
+        
+        <a  class="others "
+           href="/2019/12/02/deploy/others/ddos/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ddos.md">ddos.md</span>
+            <span class="post-date" title="2019-12-02 11:12:55">2019/12/02</span>
+        </a>
+        
+        <a  class="others "
+           href="/2019/11/30/deploy/others/ffmpeg%E8%A7%86%E9%A2%91%E6%8B%BC%E6%8E%A5/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="ffmpeg视频拼接.md">ffmpeg视频拼接.md</span>
+            <span class="post-date" title="2019-11-30 20:33:53">2019/11/30</span>
+        </a>
+        
+        <a  class="others "
+           href="/2019/12/02/deploy/others/py%E5%90%AF%E5%8A%A8http%E6%9C%8D%E5%8A%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py启动http服务.md">py启动http服务.md</span>
+            <span class="post-date" title="2019-12-02 11:13:50">2019/12/02</span>
+        </a>
+        
+        <a  class="others "
+           href="/2019/12/02/deploy/others/%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="有道翻译接口调用.md">有道翻译接口调用.md</span>
+            <span class="post-date" title="2019-12-02 10:29:03">2019/12/02</span>
+        </a>
+        
+        <a  class="others "
+           href="/2019/12/02/deploy/others/%E8%BF%9B%E5%BA%A6%E6%9D%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="进度条.md">进度条.md</span>
+            <span class="post-date" title="2019-12-02 11:43:07">2019/12/02</span>
+        </a>
+        
+        <a  class="others "
+           href="/2019/12/02/deploy/others/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%AF%86%E9%92%A5%E5%8A%A0%E8%A7%A3%E5%AF%86%E7%AD%BE%E5%90%8D%E9%AA%8C%E7%AD%BE/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="非对称密钥加解密签名验签.md">非对称密钥加解密签名验签.md</span>
+            <span class="post-date" title="2019-12-02 11:43:48">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/pip%E4%BD%BF%E7%94%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pip使用.md">pip使用.md</span>
+            <span class="post-date" title="2019-12-02 12:50:16">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20pylint/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py pylint.md">py pylint.md</span>
+            <span class="post-date" title="2019-12-02 12:24:06">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20requirements/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py requirements.md">py requirements.md</span>
+            <span class="post-date" title="2019-12-02 12:24:28">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E5%85%A5%E9%97%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 入门.md">py 入门.md</span>
+            <span class="post-date" title="2019-12-02 10:58:21">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E5%8F%8D%E5%B0%84/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 反射.md">py 反射.md</span>
+            <span class="post-date" title="2019-12-02 13:53:30">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E5%8F%8D%E7%BC%96%E8%AF%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 反编译.md">py 反编译.md</span>
+            <span class="post-date" title="2019-12-02 11:41:23">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E5%8F%91%E5%B8%83%E5%8C%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 发布包.md">py 发布包.md</span>
+            <span class="post-date" title="2019-12-02 12:27:01">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E5%90%8E%E7%BC%80%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 后缀文件格式说明.md">py 后缀文件格式说明.md</span>
+            <span class="post-date" title="2019-12-02 11:37:07">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E5%A4%9A%E8%BF%9B%E7%A8%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 多进程.md">py 多进程.md</span>
+            <span class="post-date" title="2019-12-02 12:20:28">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E5%BC%82%E6%AD%A5%E5%8D%8F%E7%A8%8B%E6%95%B4%E7%90%86/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 异步协程整理.md">py 异步协程整理.md</span>
+            <span class="post-date" title="2019-12-02 12:00:01">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E6%8E%92%E5%BA%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 排序.md">py 排序.md</span>
+            <span class="post-date" title="2019-12-02 12:09:13">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E6%9D%80%E6%AD%BB%E5%AD%90%E7%BA%BF%E7%A8%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 杀死子线程.md">py 杀死子线程.md</span>
+            <span class="post-date" title="2019-12-02 11:48:30">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/11/30/deploy/python/py%20%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 虚拟环境.md">py 虚拟环境.md</span>
+            <span class="post-date" title="2019-11-30 20:29:06">2019/11/30</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/02/deploy/python/py%20%E9%87%8D%E5%AE%9A%E5%90%91/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 重定向.md">py 重定向.md</span>
+            <span class="post-date" title="2019-12-02 11:25:24">2019/12/02</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/11/30/deploy/python/pyinstaller%E4%BD%BF%E7%94%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pyinstaller使用.md">pyinstaller使用.md</span>
+            <span class="post-date" title="2019-11-30 13:53:55">2019/11/30</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/11/30/deploy/python/py%E4%BC%98%E5%8C%96/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py优化.md">py优化.md</span>
+            <span class="post-date" title="2019-11-30 14:03:37">2019/11/30</span>
+        </a>
+        
+        <a  class="raspberry "
+           href="/2019/12/02/deploy/raspberry/pi%20%E5%AE%89%E8%A3%85py%E7%8E%AF%E5%A2%83/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pi 安装py环境.md">pi 安装py环境.md</span>
+            <span class="post-date" title="2019-12-02 15:06:27">2019/12/02</span>
+        </a>
+        
+        <a  class="raspberry "
+           href="/2019/12/03/deploy/raspberry/pi%20%E6%9F%A5%E7%9C%8B%E6%B8%A9%E5%BA%A6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pi 查看温度.md">pi 查看温度.md</span>
+            <span class="post-date" title="2019-12-03 11:20:06">2019/12/03</span>
+        </a>
+        
+        <a  class="raspberry "
+           href="/2019/12/02/deploy/raspberry/pi%20%E7%BD%91%E7%BB%9C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pi 网络.md">pi 网络.md</span>
+            <span class="post-date" title="2019-12-02 16:47:57">2019/12/02</span>
+        </a>
+        
+        <a  class="raspberry "
+           href="/2019/12/02/deploy/raspberry/pi%20%E8%8E%B7%E5%8F%96ip%E8%84%9A%E6%9C%AC/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pi 获取ip脚本.md">pi 获取ip脚本.md</span>
+            <span class="post-date" title="2019-12-02 16:57:43">2019/12/02</span>
+        </a>
+        
+        <a  class="raspberry "
+           href="/2019/12/03/deploy/raspberry/pi%20%E9%85%8D%E7%BD%AE%E4%B8%AD%E6%96%87/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="pi 配置中文.md">pi 配置中文.md</span>
+            <span class="post-date" title="2019-12-03 11:24:03">2019/12/03</span>
+        </a>
+        
+        <a  class="server "
+           href="/2019/12/02/deploy/server/nginx/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="nginx.md">nginx.md</span>
+            <span class="post-date" title="2019-12-02 14:28:12">2019/12/02</span>
+        </a>
+        
+        <a  class="database mongo "
+           href="/2019/12/02/deploy/database/mongo/mongo%20%E7%94%A8%E6%88%B7/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="mongo 用户.md">mongo 用户.md</span>
+            <span class="post-date" title="2019-12-02 15:04:08">2019/12/02</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20adduser/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux adduser.md">linux adduser.md</span>
+            <span class="post-date" title="2019-12-03 14:10:49">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20chmod/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux chmod.md">linux chmod.md</span>
+            <span class="post-date" title="2019-12-03 11:26:51">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20crontab/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux crontab.md">linux crontab.md</span>
+            <span class="post-date" title="2019-12-03 11:25:44">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20df/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux df.md">linux df.md</span>
+            <span class="post-date" title="2019-12-03 08:55:04">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20jobs/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux jobs.md">linux jobs.md</span>
+            <span class="post-date" title="2019-12-03 12:30:32">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20lsattr/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux lsattr.md">linux lsattr.md</span>
+            <span class="post-date" title="2019-12-03 12:29:41">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20screen/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux screen.md">linux screen.md</span>
+            <span class="post-date" title="2019-12-03 12:13:53">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20sed/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux sed.md">linux sed.md</span>
+            <span class="post-date" title="2019-12-03 12:31:41">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20ssh/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux ssh.md">linux ssh.md</span>
+            <span class="post-date" title="2019-12-03 12:26:48">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20tail/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux tail.md">linux tail.md</span>
+            <span class="post-date" title="2019-12-03 08:55:04">2019/12/03</span>
+        </a>
+        
+        <a  class="linux cmd "
+           href="/2019/12/03/deploy/linux/cmd/linux%20tmux/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="linux tmux.md">linux tmux.md</span>
+            <span class="post-date" title="2019-12-03 12:13:43">2019/12/03</span>
+        </a>
+        
+        <a  class="python built-in "
+           href="/2019/11/30/deploy/python/built-in/py%20contextlib/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py contextlib.md">py contextlib.md</span>
+            <span class="post-date" title="2019-11-30 14:44:48">2019/11/30</span>
+        </a>
+        
+        <a  class="python built-in "
+           href="/2019/12/02/deploy/python/built-in/py%20defaultdict%E5%92%8Cnamedtuple/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py defaultdict和namedtuple.md">py defaultdict和namedtuple.md</span>
+            <span class="post-date" title="2019-12-02 11:45:02">2019/12/02</span>
+        </a>
+        
+        <a  class="python built-in "
+           href="/2019/12/02/deploy/python/built-in/py%20string/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py string.md">py string.md</span>
+            <span class="post-date" title="2019-12-02 11:28:36">2019/12/02</span>
+        </a>
+        
+        <a  class="python built-in "
+           href="/2019/11/30/deploy/python/built-in/py%20%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 内置函数.md">py 内置函数.md</span>
+            <span class="post-date" title="2019-11-30 14:52:01">2019/11/30</span>
+        </a>
+        
+        <a  class="python built-in "
+           href="/2019/12/02/deploy/python/built-in/py%20%E7%89%B9%E6%AE%8A%E5%87%BD%E6%95%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 特殊函数.md">py 特殊函数.md</span>
+            <span class="post-date" title="2019-12-02 13:43:55">2019/12/02</span>
+        </a>
+        
+        <a  class="python built-in "
+           href="/2019/12/02/deploy/python/built-in/py%20%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 特殊文件.md">py 特殊文件.md</span>
+            <span class="post-date" title="2019-12-02 13:46:10">2019/12/02</span>
+        </a>
+        
+        <a  class="python built-in "
+           href="/2019/12/02/deploy/python/built-in/py%20%E8%A3%85%E9%A5%B0%E5%99%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py 装饰器.md">py 装饰器.md</span>
+            <span class="post-date" title="2019-12-02 16:48:01">2019/12/02</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20abstract_factory_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py abstract_factory_pattern.md">py abstract_factory_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20adapter_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py adapter_pattern.md">py adapter_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20builder_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py builder_pattern.md">py builder_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20chain_of_responsibility_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py chain_of_responsibility_pattern.md">py chain_of_responsibility_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20cmmand_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py cmmand_pattern.md">py cmmand_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20decorator_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py decorator_pattern.md">py decorator_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20facade_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py facade_pattern.md">py facade_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20fctory_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py fctory_pattern.md">py fctory_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20flyweight_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py flyweight_pattern.md">py flyweight_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20interpreter_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py interpreter_pattern.md">py interpreter_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20model-view-controller_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py model-view-controller_pattern.md">py model-view-controller_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20observer_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py observer_pattern.md">py observer_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20plugin_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py plugin_pattern.md">py plugin_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:01:17">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20prototype_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py prototype_pattern.md">py prototype_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20proxy_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py proxy_pattern.md">py proxy_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20singleton_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py singleton_pattern.md">py singleton_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20state_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py state_pattern.md">py state_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20strategy_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py strategy_pattern.md">py strategy_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python design_patterns "
+           href="/2019/11/30/deploy/python/design_patterns/py%20template_pattern/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py template_pattern.md">py template_pattern.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20alipay/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py alipay.md">py alipay.md</span>
+            <span class="post-date" title="2019-11-30 20:35:51">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20atexit/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py atexit.md">py atexit.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20bottle/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py bottle.md">py bottle.md</span>
+            <span class="post-date" title="2019-12-02 12:16:05">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20copy/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py copy.md">py copy.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20doctest/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py doctest.md">py doctest.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20fire/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py fire.md">py fire.md</span>
+            <span class="post-date" title="2019-11-30 14:19:49">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20jwt/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py jwt.md">py jwt.md</span>
+            <span class="post-date" title="2019-12-02 11:42:15">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20logging/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py logging.md">py logging.md</span>
+            <span class="post-date" title="2019-12-02 16:47:54">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20memcached/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py memcached.md">py memcached.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20opencv/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py opencv.md">py opencv.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20pickle/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py pickle.md">py pickle.md</span>
+            <span class="post-date" title="2019-11-30 20:23:27">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20pickledb/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py pickledb.md">py pickledb.md</span>
+            <span class="post-date" title="2019-12-02 12:11:12">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20pil/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py pil.md">py pil.md</span>
+            <span class="post-date" title="2019-11-30 20:09:20">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20random/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py random.md">py random.md</span>
+            <span class="post-date" title="2019-12-02 12:14:26">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20redis/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py redis.md">py redis.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20requests/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py requests.md">py requests.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20rpyc/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py rpyc.md">py rpyc.md</span>
+            <span class="post-date" title="2019-12-02 13:49:31">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20shutil/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py shutil.md">py shutil.md</span>
+            <span class="post-date" title="2019-11-30 14:13:57">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20socket/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py socket.md">py socket.md</span>
+            <span class="post-date" title="2019-12-02 12:22:35">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/12/02/deploy/python/libs/py%20threading/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py threading.md">py threading.md</span>
+            <span class="post-date" title="2019-12-02 16:47:48">2019/12/02</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20tmpfile/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py tmpfile.md">py tmpfile.md</span>
+            <span class="post-date" title="2019-11-30 21:05:28">2019/11/30</span>
+        </a>
+        
+        <a  class="python libs "
+           href="/2019/11/30/deploy/python/libs/py%20unittest/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py unittest.md">py unittest.md</span>
+            <span class="post-date" title="2019-11-30 20:16:45">2019/11/30</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20compose/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker compose.md">docker compose.md</span>
+            <span class="post-date" title="2019-12-02 14:37:38">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20dockerfile/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker dockerfile.md">docker dockerfile.md</span>
+            <span class="post-date" title="2019-12-02 14:38:04">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E5%8D%B7%E6%8C%82%E8%BD%BD/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 卷挂载.md">docker 卷挂载.md</span>
+            <span class="post-date" title="2019-12-02 14:38:12">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E5%A4%9A%E9%98%B6%E6%AE%B5%E6%9E%84%E5%BB%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 多阶段构建.md">docker 多阶段构建.md</span>
+            <span class="post-date" title="2019-12-02 14:37:48">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E5%AE%98%E6%96%B9%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 官方安装.md">docker 官方安装.md</span>
+            <span class="post-date" title="2019-12-02 14:38:34">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E5%AE%B9%E5%99%A8%E6%93%8D%E4%BD%9C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 容器操作.md">docker 容器操作.md</span>
+            <span class="post-date" title="2019-12-02 14:37:57">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E6%9C%80%E5%B0%8F%E5%8C%96%E6%9E%84%E5%BB%BA/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 最小化构建.md">docker 最小化构建.md</span>
+            <span class="post-date" title="2019-12-02 14:37:16">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 构建镜像.md">docker 构建镜像.md</span>
+            <span class="post-date" title="2019-12-02 14:38:40">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E7%8E%AF%E5%A2%83/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 环境.md">docker 环境.md</span>
+            <span class="post-date" title="2019-12-02 14:38:54">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E7%AC%AC%E4%B8%89%E6%96%B9%E9%95%9C%E5%83%8F%E6%9C%8D%E5%8A%A1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 第三方镜像服务.md">docker 第三方镜像服务.md</span>
+            <span class="post-date" title="2019-12-02 14:38:18">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E7%AE%80%E4%BB%8B/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 简介.md">docker 简介.md</span>
+            <span class="post-date" title="2019-12-02 14:39:04">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E7%BD%91%E7%BB%9C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 网络.md">docker 网络.md</span>
+            <span class="post-date" title="2019-12-02 14:36:22">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E8%AE%BF%E9%97%AE%E5%AE%B9%E5%99%A8/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 访问容器.md">docker 访问容器.md</span>
+            <span class="post-date" title="2019-12-02 14:38:24">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E8%BF%90%E8%A1%8Cmysql/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 运行mysql.md">docker 运行mysql.md</span>
+            <span class="post-date" title="2019-12-02 14:36:57">2019/12/02</span>
+        </a>
+        
+        <a  class="server docker "
+           href="/2019/12/02/deploy/server/docker/docker%20%E9%95%9C%E5%83%8F%E6%93%8D%E4%BD%9C/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="docker 镜像操作.md">docker 镜像操作.md</span>
+            <span class="post-date" title="2019-12-02 14:37:30">2019/12/02</span>
+        </a>
+        
+        <a  class="server k8s "
+           href="/2019/12/02/deploy/server/k8s/k8s%20%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="k8s 安装环境.md">k8s 安装环境.md</span>
+            <span class="post-date" title="2019-12-02 14:43:06">2019/12/02</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-deploy/python/py 入门" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">py 入门.md</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="python">python</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-12-03 17:20:43'>2019-12-02 10:58</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基本数据类型"><span class="toc-text">基本数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于中文"><span class="toc-text">关于中文</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有用的函数"><span class="toc-text">有用的函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于变量"><span class="toc-text">关于变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#print-使用"><span class="toc-text">print 使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#控制流语句"><span class="toc-text">控制流语句</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#if"><span class="toc-text">if</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#布尔值的运算符"><span class="toc-text">布尔值的运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三元表达式"><span class="toc-text">三元表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#while-for"><span class="toc-text">while,for</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#break-continue"><span class="toc-text">break,continue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#or的运用"><span class="toc-text">or的运用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for-使用"><span class="toc-text">for 使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#with语句"><span class="toc-text">with语句</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#list-列表"><span class="toc-text">list(列表)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#添加操作"><span class="toc-text">添加操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改"><span class="toc-text">修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除操作"><span class="toc-text">删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成员关系："><span class="toc-text">成员关系：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列表推导式"><span class="toc-text">列表推导式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内置list方法"><span class="toc-text">内置list方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序-sort-翻转-reverse"><span class="toc-text">排序:sort 翻转:reverse</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list-其他操作"><span class="toc-text">list 其他操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建集合"><span class="toc-text">创建集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作"><span class="toc-text">操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字典"><span class="toc-text">字典</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建"><span class="toc-text">创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改内容"><span class="toc-text">修改内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#update"><span class="toc-text">update</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除清空操作"><span class="toc-text">删除清空操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#get"><span class="toc-text">get</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成员关系操作"><span class="toc-text">成员关系操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他操作"><span class="toc-text">其他操作</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数注意点"><span class="toc-text">函数注意点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lambda"><span class="toc-text">lambda</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数参数位置："><span class="toc-text">函数参数位置：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义-class"><span class="toc-text">定义 class</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模块"><span class="toc-text">模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#捕获异常"><span class="toc-text">捕获异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引发异常"><span class="toc-text">引发异常</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户自定义的异常"><span class="toc-text">用户自定义的异常</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h1><table>
+<thead>
+<tr>
+<th align="center">关键字</th>
+<th align="center">类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">int</td>
+<td align="center">整型</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">整型</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">长整型</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">浮点数</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">布尔</td>
+</tr>
+<tr>
+<td align="center">string</td>
+<td align="center">字符串</td>
+</tr>
+<tr>
+<td align="center">list</td>
+<td align="center">列表 []</td>
+</tr>
+<tr>
+<td align="center">tuple</td>
+<td align="center">元组 ()</td>
+</tr>
+<tr>
+<td align="center">dict</td>
+<td align="center">字典 {}</td>
+</tr>
+<tr>
+<td align="center">set</td>
+<td align="center">集合</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>不可变类型: int, long, float, string, tuple</p>
+</blockquote>
+<blockquote>
+<p>可变类型:   list, dict, set</p>
+</blockquote>
+<ul>
+<li>r”” 不转义</li>
+</ul>
+<h1 id="关于中文"><a href="#关于中文" class="headerlink" title="关于中文"></a>关于中文</h1><blockquote>
+<p>py3原生支持utf8, py2有以下操作</p>
+</blockquote>
+<p>在文件开始添加</p>
+<pre><code class="python"># -*- coding: UTF-8 -*-</code></pre>
+<p>或者这样定义 utf-8 编码的中文字符串</p>
+<pre><code class="python">s = u&quot;中文&quot;</code></pre>
+<p>或者</p>
+<pre><code class="python">a = &quot;啊啊啊啊&quot;
+a.decode(&#39;utf-8&#39;)  #转换成 utf-8</code></pre>
+<h1 id="有用的函数"><a href="#有用的函数" class="headerlink" title="有用的函数"></a>有用的函数</h1><table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">type()</td>
+<td align="center">查看变量的数据类型</td>
+</tr>
+<tr>
+<td align="center">help()</td>
+<td align="center">查看帮助文档</td>
+</tr>
+<tr>
+<td align="center">id()</td>
+<td align="center">查看变量 id</td>
+</tr>
+<tr>
+<td align="center">dir()</td>
+<td align="center">查看有哪些方法</td>
+</tr>
+<tr>
+<td align="center">len()</td>
+<td align="center">查看字符串长度</td>
+</tr>
+<tr>
+<td align="center">sys.getrefcount</td>
+<td align="center">python内部的引用计数</td>
+</tr>
+</tbody></table>
+<h1 id="关于变量"><a href="#关于变量" class="headerlink" title="关于变量"></a>关于变量</h1><ol>
+<li>动态特性 可以赋予不同的数据类型</li>
+<li>多重赋值</li>
+</ol>
+<pre><code class="python">#下面相当于 a,b,c = (&quot;str&quot;,&quot;str1&quot;,4)
+a,b,c = &quot;str&quot;,&quot;str1&quot;,4
+
+del b  #删除变量</code></pre>
+<h1 id="print-使用"><a href="#print-使用" class="headerlink" title="print 使用"></a>print 使用</h1><pre><code class="python">print(2)
+print(2,3)  # 输出到同一行</code></pre>
+<h1 id="控制流语句"><a href="#控制流语句" class="headerlink" title="控制流语句"></a>控制流语句</h1><h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><pre><code class="python"># pass 表示什么都不执行，可以避免报错
+if True: 
+    pass
+else:
+    pass
+
+if True:
+    pass
+elif True:
+    pass
+else:
+    pass
+
+if True:
+    pass
+
+if not False:
+    pass</code></pre>
+<h2 id="布尔值的运算符"><a href="#布尔值的运算符" class="headerlink" title="布尔值的运算符"></a>布尔值的运算符</h2><table>
+<thead>
+<tr>
+<th align="center">关键字</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">and</td>
+<td align="center">全部都为bool值</td>
+</tr>
+<tr>
+<td align="center">or</td>
+<td align="center">至少有一项为bool真</td>
+</tr>
+<tr>
+<td align="center">is</td>
+<td align="center">检查共享，检查是否引用同一个对象</td>
+</tr>
+<tr>
+<td align="center">==</td>
+<td align="center">检查值</td>
+</tr>
+<tr>
+<td align="center">not</td>
+<td align="center">非</td>
+</tr>
+</tbody></table>
+<h2 id="三元表达式"><a href="#三元表达式" class="headerlink" title="三元表达式"></a>三元表达式</h2><pre><code class="python">4 if True else 3
+#相当于
+if True:
+    print(4)
+else:
+    print(3)</code></pre>
+<h2 id="while-for"><a href="#while-for" class="headerlink" title="while,for"></a>while,for</h2><pre><code class="python">while True:
+    print(3)
+else:
+    print(&#39;在while正常跑完时执行,没有break&#39;)</code></pre>
+<h2 id="break-continue"><a href="#break-continue" class="headerlink" title="break,continue"></a>break,continue</h2><pre><code class="python">for x in &quot;i am a man&quot;.split(&quot; &quot;):#以空格分隔
+    print(x)
+else:
+    print(&#39;与while相同&#39;)
+# x保留最后迭代值</code></pre>
+<h2 id="or的运用"><a href="#or的运用" class="headerlink" title="or的运用"></a>or的运用</h2><pre><code class="python">a = url.get(from) or None #如果前一个为null, 则赋值None</code></pre>
+<h2 id="for-使用"><a href="#for-使用" class="headerlink" title="for 使用"></a>for 使用</h2><pre><code class="python">a = &quot;asdfas&quot;
+for i in a:
+    print(i)
+
+b = [1,2,3,4,5]
+for i in b:
+    pirnt(i)
+
+c = (&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)
+for i in c:
+    print(i)
+
+
+#如果定义了重复的键，只取最后一个
+a = {&#39;key1&#39;:&#39;value1&#39;,&#39;key2&#39;:&#39;value2&#39;,&#39;key2&#39;:&#39;vale3&#39;}
+
+#遍历键
+for i in a.keys():
+    print(i)
+
+#同时遍历键值
+for x,y in a.items():
+    print(x,y)
+</code></pre>
+<p>根据字典的值得到字典的键</p>
+<ol>
+<li>字典索引的是键，而不是值-&gt;迭代，穷举</li>
+<li>字典具有唯一键，单值却不要求是唯一的</li>
+<li>一个值可能对应多个键</li>
+</ol>
+<h1 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h1><pre><code class="python">g = open(&#39;a.txt&#39;，&#39;w&#39;)
+g.write(&quot;hahhahahahah\nhahah&quot;)
+g.close()
+
+#下面的代码与上面等同，会自动关闭文件
+with open(&#39;a.txt&#39;,&#39;a&#39;) as g:
+    g.write(&#39;xixixi&#39;)</code></pre>
+<h1 id="list-列表"><a href="#list-列表" class="headerlink" title="list(列表)"></a>list(列表)</h1><ol>
+<li>有序的集合</li>
+<li>通过偏移来索引，从而读取数据</li>
+<li>支持嵌套</li>
+<li>可变的类型</li>
+<li>切片：<br>a = [1,2,3，4，5，6，7］<br>正向索引 :a[1:5]<br>反向索引 :a[-4:-1]<br>默认索引 :a[:], a[:3], a[1:]</li>
+</ol>
+<h2 id="添加操作"><a href="#添加操作" class="headerlink" title="添加操作"></a>添加操作</h2><ul>
+<li>‘+’生成一个新的列表</li>
+<li>extend() :接受参数并将该参数的每个元素都添加到原有的列表中，原地修改列表而不是新建列表</li>
+<li>append() :添加任意对象到列表的末端</li>
+<li>insert() :插入任意对象到列表中，可以控制插入位置。</li>
+</ul>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><p>修改列表本身只需要直接赋值操作就行。</p>
+<pre><code class="python">A   = [1,2,3]
+A[0]=&#39;haha&#39;</code></pre>
+<h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><ul>
+<li>del()   :我们通过索引删除指定位置的元素。</li>
+<li>remove():移除列表中指定值的第一个匹配值。如果没找到的话，会抛异常。</li>
+<li>pop()   :返回最后一个元素，并从list中删除它。</li>
+</ul>
+<h2 id="成员关系："><a href="#成员关系：" class="headerlink" title="成员关系："></a>成员关系：</h2><p>In , not in :我们可以判断一个元素是否在列表里。返回一个bool类型，元素在列表里返回true，否则返回fasle.</p>
+<h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><p>[expr for iter_var in iterable]</p>
+<ol>
+<li>首先迭代iterable里所有内容，每一次迭代，都把iterable里相应内容放到iter_var中，再在表达式中应用该iter_var的内容，最后用表达式的计算值生成一个列表。</li>
+</ol>
+<p>比如我们要生成一个包含1到10的列表</p>
+<pre><code class="python">[x for x in range(1,11)]
+
+Range(1,11)</code></pre>
+<p>[expr for iter_var in iterable if cond_expr]</p>
+<ol start="2">
+<li>加入了判断语句，只有满足条件的内容才把iterable里相应内容放到iter_var中，再在表达式中应用该iter_var的内容，最后用表达式的计算值生成一个列表。</li>
+</ol>
+<p>要生成包含1到10的所有奇数列表。</p>
+<pre><code class="python">range(1,11,2)
+
+[x for x in range(1,11) if x % 2 == 1]</code></pre>
+<pre><code>[x*x for x in range(100)]
+
+#生成字符串
+[&#39;the %s&#39;%d for d in xrange(10)]
+
+#生成元组
+[(x,y) for x in range(2) for y in range(2)]
+
+#生成字典
+dict([(x,y) for x in range(3) for y in range(2)])</code></pre><h2 id="内置list方法"><a href="#内置list方法" class="headerlink" title="内置list方法"></a>内置list方法</h2><pre><code>list(a) #返回一个列表，参数是可迭代对象，可传入字符串，元组</code></pre><p>range 返回一个列表对象<br>xrange 返回xrange对象<br>上面的区别在python3中已经没有了</p>
+<p>del a 删除列表对象的引用<br>del a[:] 清空列表对象里的元素</p>
+<h2 id="排序-sort-翻转-reverse"><a href="#排序-sort-翻转-reverse" class="headerlink" title="排序:sort 翻转:reverse"></a>排序:sort 翻转:reverse</h2><p>a = [33,11,22,44]</p>
+<p>b = a.sort() #排序，默认从小到大, 返回值为None<br>b = a. reverse() #反转一个list返回值为none,结合上面从大到小排序</p>
+<h2 id="list-其他操作"><a href="#list-其他操作" class="headerlink" title="list 其他操作"></a>list 其他操作</h2><pre><code class="python">b = a[:]  #这样可以拷贝,而不是拷贝引用</code></pre>
+<h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><h2 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h2><p>set():可变的，不可变的frozenset()</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ol>
+<li>添加 add，update</li>
+<li>删除：remove</li>
+<li>交集，并集，差集：&amp; | -</li>
+<li>成员关系 in ,  not in</li>
+<li>set去重，列表内容元素重复<pre><code class="python">a=[1,2,1,2,12,1,2]
+list(set(a)) #这样可以将列表内容去重</code></pre>
+</li>
+</ol>
+<h1 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h1><h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>{} , dict()</p>
+<pre><code class="python">info = {&#39;name&#39;:&#39;lilei&#39;,&#39;age&#39;:20}
+info = dict(name=&#39;lilei&#39;,age=20)</code></pre>
+<p>字典的键必须是不可变的数据类型，比如数字，字符串，元组<br>binfo = {1:’22’,2:’33’}<br>binfo = {(1,2),’as’,(a,b),”df”}</p>
+<p>##添加内容<br>a[‘xx’] = ‘xx’</p>
+<pre><code class="python">info[&#39;phone&#39;] = &#39;iphone&#39;</code></pre>
+<h2 id="修改内容"><a href="#修改内容" class="headerlink" title="修改内容"></a>修改内容</h2><p>a[‘xx’] = ‘xx’</p>
+<pre><code class="python">例如 info[&#39;phone&#39;] = &#39;htc&#39;</code></pre>
+<h2 id="update"><a href="#update" class="headerlink" title="update"></a>update</h2><p>参数是一个字典的类型，会覆盖相同的值</p>
+<pre><code class="python">info.update({&#39;city&#39;:&#39;beijing&#39;,&#39;phone&#39;:&#39;nokia&#39;})</code></pre>
+<h2 id="删除清空操作"><a href="#删除清空操作" class="headerlink" title="删除清空操作"></a>删除清空操作</h2><pre><code class="python">del info[&#39;phone&#39;]       #删除某个元素
+info.clear()            #删除字典的全部元素
+info.pop(&#39;name&#39;)        #返回值，删除键名
+info.pop(&#39;name&#39;,&#39;1234&#39;) #name 不存在返回默认值 1234</code></pre>
+<h2 id="get"><a href="#get" class="headerlink" title="get"></a>get</h2><pre><code class="python">info.get(&#39;name&#39;)      #没有返回 NoneType 类型
+info.get(&#39;age2&#39;,&#39;22&#39;) #可以设置默认值</code></pre>
+<h2 id="成员关系操作"><a href="#成员关系操作" class="headerlink" title="成员关系操作"></a>成员关系操作</h2><p>in 和has_key()</p>
+<pre><code class="python">phone in info
+info.has_key(&#39;phone&#39;)</code></pre>
+<h2 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h2><p>keys()   :返回的是列表，里面包含了字典的所有键<br>values() :返回的是列表，里面包含了字典的所有值<br>items()  :生成一个字典的容器 :[()]</p>
+<p>binfo = {‘a’:[1,2,3],’b’:[4,5,6]}<br>binfo[‘a’][2] = 5     #修改的方式</p>
+<p>字典排序，以键从小到大</p>
+<pre><code>key_list = a.keys()
+key_list.sort()
+for x in key_list:
+    print(x,a[x])</code></pre><h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>定义</p>
+<pre><code class="python">def a():
+    &quot;在这里写函数文档&quot;
+    retur 4
+
+print(test.__doc__) #输出函数文档
+#是class时写在class开头，也可写在整个文件的开头，使用模块名.__doc__方式访问</code></pre>
+<p>带参数，有默认值</p>
+<pre><code class="python">def test(a=4):
+    return a
+
+def test3(a,c,d=&quot;json&quot;):
+    return
+test3(2,3,d=&quot;xml&quot;)</code></pre>
+<pre><code class="python">global b #在函数中声明全局变量，声明后可以修改全局变量</code></pre>
+<pre><code class="python">def test1(**kr):
+    return kr
+print(test1(c=1,g=24)) #转换成字典输出
+
+
+def test2(*z):
+    return z
+print(test2(1,2,3,435,[2,3,4])) #转换成元组输出
+
+
+def test(*z,**kr): #一种用法：可以用于读取多余的参数，保函数运行
+    return z,kr
+
+#&quot;**&quot; 字典
+#&quot;*&quot;  元组</code></pre>
+<h1 id="函数注意点"><a href="#函数注意点" class="headerlink" title="函数注意点"></a>函数注意点</h1><ul>
+<li>功能完整</li>
+<li>异常处理完善</li>
+<li>参数默认值:更省事，更可配置</li>
+</ul>
+<pre><code class="python"> assert add(2,4) == 3     #assert :断言，对函数返回值和类型进行确认
+
+dir(func.__code)__)       #查看该属性拥有的项
+func.__code__.co_varnames #查看函数有哪些参数
+func.__code__.co_filename #查看该函数来自哪个文件</code></pre>
+<h1 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h1><ol>
+<li>lambda是一个表达式。</li>
+<li>它没有名称，存储的也不是代码块，而是表达式。</li>
+<li>它被用作执行很小的功能，不能在里面使用条件语句。</li>
+</ol>
+<pre><code class="python">d = lambda x:x+1
+print(d(2))
+
+d = lambda x:x+1 if x &gt; 0 else &quot;error&quot;
+
+#d = lambda x:列表推导式
+d = lambda x:[(x,i) for i in xrange(0,10)]
+
+t = [1,2,3,4,5]
+g = filter(lambda x:x &gt; 3,t) #过滤出大于 3 的数字</code></pre>
+<h1 id="函数参数位置："><a href="#函数参数位置：" class="headerlink" title="函数参数位置："></a>函数参数位置：</h1><ol>
+<li>先是位置匹配的参数</li>
+<li>再是关键字匹配的参数</li>
+<li>收集匹配的元组参数</li>
+<li>收集匹配的关键字参数</li>
+</ol>
+<ol>
+<li>如何去定义一个最基本的class</li>
+<li>class最基本的子元素</li>
+<li>class传参</li>
+<li><strong>init</strong>方法</li>
+<li>class和函数的区别</li>
+</ol>
+<h1 id="定义-class"><a href="#定义-class" class="headerlink" title="定义 class"></a>定义 class</h1><p>可继承，重写，</p>
+<pre><code class="python"># -*- coding: utf-8 -*-
+class test(object): #所有的class都是object的派生类
+
+    a = 1 #属性
+
+    #当定义一个class的内置方法时，方法的参数的第一个永远是self。
+    def __init__(self,var1): #构造函数
+        self.var1 = var1 #这里的 self.var1 为全局变量
+
+    #get被称之为test对象的方法
+    def get(self,a=None):
+        return self.var1
+
+    def __del__(self): #析构函数
+        del self.arg1
+
+    pass
+
+
+#使用
+t = test(&#39;test str heiheihei&#39;)
+print(t.get())</code></pre>
+<ol>
+<li>通过在一个变量或者函数之前加上下划线来表示私有变量的，例如__spam(这里是两个下划线)就是私有的。</li>
+<li>Python会在类的内部自动的把你定义的<strong>spam变量的名字替换成为 _classname</strong>spam(注意，classname前面是一个下划线，spam前是两个下划线)，Python把这种技术叫做“name mangling”。因此，用户在外部访问__spam的时候就会提示找不到相应的变量。</li>
+</ol>
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><p>包的创建 :文件夹中创建 <strong>init</strong>.py 文件</p>
+<p>搜索模块</p>
+<pre><code class="python">import  sys
+sys.path.append(&#39;/tmp/m2&#39;) #添加模块搜索路径</code></pre>
+<p>下面的含义是: 当前文件作为主函数时执行，其他文件 import 不执行</p>
+<pre><code>if __name__ == &quot;__main__&quot;:
+    pass</code></pre><h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><h2 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h2><pre><code class="python">try:
+    pass
+except Error:
+    pass
+fjinally:  #终止行为
+    pass</code></pre>
+<h2 id="引发异常"><a href="#引发异常" class="headerlink" title="引发异常"></a>引发异常</h2><pre><code class="python">try:
+    raise IndexError #引发异常
+except IndexError:
+    pass</code></pre>
+<p>assert语句也可以用来触发异常，它是一个有条件的raise，主要用在开发过程中调试</p>
+<p>assert False, “出错信息”</p>
+<h2 id="用户自定义的异常"><a href="#用户自定义的异常" class="headerlink" title="用户自定义的异常"></a>用户自定义的异常</h2><pre><code class="python">class Bad(Exception):
+    pass
+
+def doomed():
+    raise Bad()
+
+try:
+    doomed()
+except Bad:
+    print(&#39;got Bad&#39;)</code></pre>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 仅供参考 </span>
+    </div>
+</article>
+
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2017 John Doe</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
