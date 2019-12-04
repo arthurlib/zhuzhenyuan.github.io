@@ -4,11 +4,30 @@
   
     
     <entry>
-      <title>py backup_copy.md</title>
-      <link href="/2019/12/04/python/py%20backup_copy/"/>
-      <url>/2019/12/04/python/py%20backup_copy/</url>
+      <title>linux brew切换源.md</title>
+      <link href="/2019/12/04/linux/linux%20brew%E5%88%87%E6%8D%A2%E6%BA%90/"/>
+      <url>/2019/12/04/linux/linux%20brew%E5%88%87%E6%8D%A2%E6%BA%90/</url>
       
-        <content type="html"><![CDATA[<pre><code>#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;拷贝文件目录，不重复拷贝，修改过的会覆盖，源中删除的会目标中也会删除&quot;&quot;&quot;import shutilimport osdef copy(src, dst):    next_list = []    src_list = os.listdir(src)    dst_list = os.listdir(dst)    for src_name in src_list:        src_path = os.path.join(src, src_name).replace(&#39;\\&#39;, &#39;/&#39;)        dst_path = os.path.join(dst, src_name).replace(&#39;\\&#39;, &#39;/&#39;)        if src_name not in dst_list:  # dst不存在            if os.path.isdir(src_path):                os.mkdir(dst_path)                next_list.append((src_path, dst_path))            else:                shutil.copy2(src_path, dst_path)        else:            if os.path.isfile(src_path):                if os.path.getmtime(src_path) &gt; os.path.getmtime(dst_path):                    shutil.copy2(src_path, dst_path)    for dst_name in dst_list:        if dst_name not in src_list:            dst_path = os.path.join(dst, dst_name).replace(&#39;\\&#39;, &#39;/&#39;)            if os.path.isfile(dst_path):                os.remove(dst_path)            else:                shutil.rmtree(dst_path)    return next_listdef main(src, dst):    if not os.path.exists(dst):        os.makedirs(dst)    next_list = [(src, dst)]    for src, dst in next_list:        next_list += copy(src, dst)if __name__ == &quot;__main__&quot;:    main(&#39;./tmp&#39;, &#39;./ss&#39;)</code></pre>]]></content>
+        <content type="html"><![CDATA[<pre><code>第一步，替换brew.gitcd “$(brew --repo)”git remote -v可以看到官方镜像是https://github.com/Homebrew/homebrewgit remote set-url origin https://mirrors.ustc.edu.cn/brew.git第二步：替换homebrew-core.gitcd “$(brew --repo)/Library/Taps/homebrew/homebrew-core”git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git再次使用brew update进行更新，发现速度变的很快。至此替换镜像完成，我们将官方镜像替换成了中科大的镜像。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py 后缀文件格式说明.md</title>
+      <link href="/2019/12/04/python/py%20%E5%90%8E%E7%BC%80%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E/"/>
+      <url>/2019/12/04/python/py%20%E5%90%8E%E7%BC%80%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>.py 文件</p></blockquote><p>Python 最常用格式就是 .py (另一较常用格式为 .pyw)，由 python.exe 解释，可在控制台下运行。</p><blockquote><p>.pyw</p></blockquote><p>pyw是另一种源码扩展名，跟py唯一的区别是在windows下双击pyw扩展名的源码会调用pythonw.exe执行源码，<br>这种执行方式不会有命令行窗口。主要用于GUI程序发布时不需要看到控制台信息的情况。</p><blockquote><p>.pyc</p></blockquote><p>在执行python代码时经常会看到同目录下自动生成同名的pyc文件。<br>这是python源码编译后的字节码，一般会在代码执行时自动生成你代码中引用的py文件的pyc文件。<br>这个文件可以直接执行，用文本编辑器打开也看不到源码。</p><blockquote><p>.pyo</p></blockquote><p>pyo是跟pyc类似的优化编码后的文件。</p><blockquote><p>.pxd文件</p></blockquote><ul><li>.pxd 文件是由 Cython 编程语言 “编写” 而成的 Python 扩展模块头文件。</li><li>.pxd 文件类似于 C 语言的 .h 头文件，.pxd 文件中有 Cython 模块要包含的 Cython 声明 (或代码段)。</li><li>.pxd 文件可共享外部 C 语言声明，也能包含 C 编译器内联函数。.pxd 文件还可为 .pyx 文件模块提供 Cython 接口，<br>以便其它 Cython 模块可使用比 Python 更高效的协议与之进行通信。可用 cimport 关键字将 .pxd 文件导入 .pyx 模块文件中。</li></ul><blockquote><p>.pyx文件</p></blockquote><ul><li>.pyx 文件是由 Cython 编程语言 “编写” 而成的 Python 扩展模块源代码文件。</li><li>.pyx 文件类似于 C 语言的 .c 源代码文件，.pyx 文件中有 Cython 模块的源代码。</li></ul><p>不像 Python 语言可直接解释使用的 .py 文件，.pyx 文件必须先被编译成 .c 文件，<br>再编译成 .pyd (Windows 平台) 或 .so (Linux 平台) 文件，才可作为模块 import 导入使用。</p><blockquote><p>.pyd文件</p></blockquote><ul><li>.pyd 文件是非 Python，由其它编程语言 “编写-编译” 生成的 Python 扩展模块。</li></ul><p>Python 要导入 .pyd 文件，实际上是在 .pyd 文件中封装了一个 module。在 python 中使用时，<br>把它当成 module 来用就可以了，即：”import 路径名.modulename” 即可，路径名为 .pyd 文件所在的路径。</p>]]></content>
       
       
       <categories>
@@ -23,11 +42,127 @@
     
     
     <entry>
+      <title>py 模拟表单.md</title>
+      <link href="/2019/12/04/python/py%20%E6%A8%A1%E6%8B%9F%E8%A1%A8%E5%8D%95/"/>
+      <url>/2019/12/04/python/py%20%E6%A8%A1%E6%8B%9F%E8%A1%A8%E5%8D%95/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">&quot;&quot;&quot;python模拟表单提交Multipart/form-data&quot;&quot;&quot;import jsonimport requestsfrom requests_toolbelt.multipart.encoder import MultipartEncoderurl = &quot;https://arch.s3.netease.com/hzdev-appci/monkeytest/video/local_task/local_device&quot;# data = {#     &quot;token&quot;: &quot;n7910ljw1234&quot;# }headers = {    # &#39;User-Agent&#39;: &#39;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0&#39;,    # &#39;Referer&#39;: url}multipart_encoder = MultipartEncoder(    fields={        &quot;token&quot;: &quot;n7910ljw1234&quot;,        &#39;file&#39;: (&quot;video.mp4&quot;, open(&quot;video.mp4&quot;, &#39;rb&#39;), &#39;application/octet-stream&#39;)    },)headers[&#39;Content-Type&#39;] = multipart_encoder.content_typer = requests.post(url, data=multipart_encoder, headers=headers)print(r.text)# r = requests.post(url, data=data, files={&quot;file&quot;: open(&quot;video.mp4&quot;, &quot;rb&quot;)}, )# print(r)# print(r.json())</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py 爬虫demo.md</title>
+      <link href="/2019/12/04/python/py%20%E7%88%AC%E8%99%ABdemo/"/>
+      <url>/2019/12/04/python/py%20%E7%88%AC%E8%99%ABdemo/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python"># file: html_downloader.py# coding:utf8import urllib2class HtmlDownloader(object):    def download(self,url):        if url is None:            return None        response = urllib2.urlopen(url)        if response.getcode() != 200:            return None        return response.read()</code></pre><pre><code class="python"># file: html_parser.py# coding:utf8from bs4 import BeautifulSoupimport reimport urlparseclass HtmlParser(object):    def _get_new_urls(self, page_url, soup):        new_urls = set()        #/view/123.htm        links = soup.find_all(&#39;a&#39;,href=re.compile(r&quot;/view/\d+\.htm&quot;))        for link in links:            new_url = link[&#39;href&#39;]            new_full_url = urlparse.urljoin(page_url,new_url)            new_urls.add(new_full_url)        return new_urls    def _get_new_data(self, page_url, soup):        res_data = {}        #url        res_data[&#39;url&#39;] = page_url        #&lt;dd class=&quot;lemmaWgt-lemmaTitle-title&quot;&gt; &lt;h1&gt;Python&lt;/h1&gt;        title_node = soup.find(&#39;dd&#39;,class_=&quot;lemmaWgt-lemmaTitle-title&quot;).find(&quot;h1&quot;)        res_data[&#39;title&#39;] = title_node.get_text()        #&lt;div class=&quot;lemma-summary&quot;&gt;        summary_node = soup.find(&#39;div&#39;,class_=&quot;lemma-summary&quot;)        res_data[&#39;summary&#39;] = summary_node.get_text()        return res_data    def parse(self, page_url,html_cont):        if page_url is None or html_cont is None:            return        soup = BeautifulSoup(html_cont,&#39;html.parser&#39;,from_encoding=&#39;utf-8&#39;)        new_urls = self._get_new_urls(page_url,soup)        new_data = self._get_new_data(page_url,soup)        return new_urls, new_data</code></pre><pre><code class="python"># file: url_manager# coding:utf8class UrlManager(object):    def __init__(self):        self.new_urls = set()        self.old_urls = set()    def add_new_url(self,url):        if url is None:            return        if url not in self.new_urls and url not in self.old_urls:            self.new_urls.add(url)    def add_new_urls(self,urls):        if urls is None or len(urls) == 0:            return        for url in urls:            self.add_new_url(url)    def has_new_url(self):        return len(self.new_urls) != 0    def get_new_url(self):        new_url = self.new_urls.pop()        self.old_urls.add(new_url)        return new_url</code></pre><pre><code class="python"># file: html_outputer.py# coding:utf8class HtmlOutputer(object):    def __init__(self):        self.datas = []    def collect_data(self,data):        if data is None:            return        self.datas.append(data)    def output_html(self):        fout = open(&#39;output.html&#39;,&#39;w&#39;)        fout.write(&quot;&lt;!DOCTYPE html&gt;&quot;)        fout.write(&quot;&lt;html lang=\&quot;en\&quot;&gt;&quot;)        fout.write(&quot;&lt;head&gt;&quot;)        fout.write(&quot;&lt;meta charset=\&quot;UTF-8\&quot; /&gt;&quot;)        fout.write(&quot;&lt;title&gt;Document&lt;/title&gt;&quot;)        fout.write(&quot;&lt;/head&gt;&quot;)        fout.write(&quot;&lt;body&gt;&quot;)        fout.write(&quot;&lt;table&gt;&quot;)        for data in self.datas:            fout.write(&quot;&lt;tr&gt;&quot;)            fout.write(&quot;&lt;td&gt;%s&lt;/td&gt;&quot; % data[&#39;url&#39;])            fout.write(&quot;&lt;td&gt;%s&lt;/td&gt;&quot; % data[&#39;title&#39;].encode(&#39;utf-8&#39;))            fout.write(&quot;&lt;td&gt;%s&lt;/td&gt;&quot; % data[&#39;summary&#39;].encode(&#39;utf-8&#39;))            fout.write(&quot;&lt;/tr&gt;&quot;)        fout.write(&quot;&lt;/table&gt;&quot;)        fout.write(&quot;&lt;/body&gt;&quot;)        fout.write(&quot;&lt;/html&gt;&quot;)</code></pre><pre><code class="python"># file: spider_main.py# coding:utf8#from baike_spider import url_manager, html_downloader, html_parser,html_outputerimport url_manager, html_downloader, html_parser,html_outputerclass SpiderMain(object):    def __init__(self):        self.urls = url_manager.UrlManager()        self.downloader = html_downloader.HtmlDownloader()        self.parser = html_parser.HtmlParser()        self.outputer = html_outputer.HtmlOutputer()    def craw(self, root_url):        count = 1        self.urls.add_new_url(root_url)        while self.urls.has_new_url():            try:                new_url = self.urls.get_new_url()                print &#39;carw %d : %s&#39; % (count,new_url)                html_cont = self.downloader.download(new_url)                new_urls,new_data = self.parser.parse(new_url,html_cont)                self.urls.add_new_urls(new_urls)                self.outputer.collect_data(new_data)                if count == 100:                    break                count = count + 1            except:                print &#39;craw failed&#39;        self.outputer.output_html()if __name__==&quot;__main__&quot;:    root_url = &quot;http://baike.baidu.com/view/21087.htm&quot;    obj_spider = SpiderMain()    obj_spider.craw(root_url)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py 编译成so.md</title>
+      <link href="/2019/12/04/python/py%20%E7%BC%96%E8%AF%91%E6%88%90so/"/>
+      <url>/2019/12/04/python/py%20%E7%BC%96%E8%AF%91%E6%88%90so/</url>
+      
+        <content type="html"><![CDATA[<p>环境</p><pre><code>pip install cythonyum install python-develyum install gcc</code></pre><p>编写测试文件a.py</p><pre><code>class A:    def say(self):        print &#39;hello&#39;</code></pre><p>编写setup文件</p><pre><code>from distutils.core import setupfrom Cython.Build import cythonizesetup(ext_modules = cythonize([&quot;a.py&quot;]))</code></pre><p>编译</p><pre><code>python3 setup.py build_extpython3 setup.py build_ext --inplace # 在当前目录生成目标文件# win=&gt;pyd, linux=&gt;so</code></pre><p>使用</p><p>进入 /root/tmp/build/lib.linux-x86_64-3.5</p><pre><code>from a import AA().say()</code></pre><p>注意</p><ol><li>内置变量<strong>name</strong>之类可能会有问题</li><li>要用同版本py才能运行</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py 退出程序方法.md</title>
+      <link href="/2019/12/04/python/py%20%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F%E6%96%B9%E6%B3%95/"/>
+      <url>/2019/12/04/python/py%20%E9%80%80%E5%87%BA%E7%A8%8B%E5%BA%8F%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">&quot;&quot;&quot;执行该语句会直接退出程序该方法中包含一个参数status，默认为0，表示正常退出，也可以为1，表示异常退出该方法引发的是一个SystemExit异常(这是唯一一个不会被认为是错误的异常)，当没有设置捕获这个异常将会直接退出程序执行，也可以捕获这个异常进行一些其他操作&quot;&quot;&quot;import syssys.exit()sys.exit(0)sys.exit(1)&quot;&quot;&quot;效果也是直接退出，不会抛出异常，但是其使用会受到平台的限制，但我们常用的Win32平台和基于UNIX的平台不会有所影响。&quot;&quot;&quot;os._exit()&quot;&quot;&quot;抛出 SystemExit 异常. 一般在交互式 Shell 中退出时使用.&quot;&quot;&quot;exit()quit()</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py select.md</title>
+      <link href="/2019/12/04/python/libs/py%20select/"/>
+      <url>/2019/12/04/python/libs/py%20select/</url>
+      
+        <content type="html"><![CDATA[<p>select，poll，epoll都是IO多路复用的机制，这里记录select</p><pre><code class="python">### select# select.select(rlist, wlist, xlist[, timeout])# rlist: 等待读就绪的list# wlist: 等待写就绪的list# xlist: 等待“异常”的listimport socketimport selects = socket.socket()s.bind((&#39;127.0.0.1&#39;, 8888))s.listen(5)r_list = [s, ]num = 0while True:    print(&quot;r_list length: &quot; + str(len(r_list)))    rl, wl, error = select.select(r_list, [], [], 0)  # 返回准备就绪的描述符，原本的只要没有移除就会一直存在    num += 1    print(rl)    print(&quot;111&quot;)    for fd in rl:        print(&quot;2222&quot;)        if fd == s:   # socket监听到连接就是读就绪状态            print(&quot;333&quot;)            conn, addr = fd.accept()  # socket的connect对象监听数据            r_list.append(conn)            msg = conn.recv(200)            print(&quot;connected&quot;)            conn.sendall((&#39;first----%s&#39; % conn.fileno()).encode())        else:            print(&quot;44444&quot;)            try:                msg = fd.recv(200)                print(&quot;get data&quot;)                fd.sendall(&#39;second&#39;.encode())            except ConnectionResetError:                print(&quot;remove&quot;)                r_list.remove(fd)s.close()</code></pre><pre><code class="python">import socketflag = 1s = socket.socket()s.connect((&#39;127.0.0.1&#39;, 8888))while flag:    input_msg = input(&#39;input&gt;&gt;&gt;&#39;)    if input_msg == &#39;0&#39;:        break    s.sendall(input_msg.encode())    msg = s.recv(1024)    print(msg.decode())s.close()</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+          <category> libs </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>py email.md</title>
       <link href="/2019/12/04/python/py%20email/"/>
       <url>/2019/12/04/python/py%20email/</url>
       
-        <content type="html"><![CDATA[<pre><code class="python">import smtplibfrom email.mime.text import MIMETextclass MailUtil(object):    def __init__(self, host, user, passwd, port=&quot;465&quot;):        if port == &quot;465&quot;:            # 加密端口            self.server = smtplib.SMTP_SSL(host, port)            # 括号中对应的是发件人邮箱账号、邮箱密码        elif port == &quot;25&quot;:            self.server = smtplib.SMTP()            self.server.connect(host, port)  # 25 为 SMTP 端口号        else:            raise AttributeError(&quot;mail port must be 465 or 25&quot;)        self.server.login(user, passwd)        self.host = host        self.user = user        self.passwd = passwd    def send(self, receivers, message):        self.server.sendmail(self.user, receivers, message.as_string())    def send_by_html(self, to_reciver: list, msg, subject, cc_reciver=[]):        &quot;&quot;&quot;抄送自己可以避免退信&quot;&quot;&quot;        if type(msg) == str:            message = MIMEText(msg, &quot;html&quot;, &#39;utf-8&#39;)            message[&#39;From&#39;] = self.user            message[&#39;To&#39;] = &quot;;&quot;.join(to_reciver)            message[&#39;Subject&#39;] = subject        elif type(msg) == MIMEText:            message = msg        else:            raise AttributeError(&quot;非法的msg&quot;)        receivers = to_reciver        if cc_reciver:            message[&#39;Cc&#39;] = &quot;;&quot;.join(cc_reciver)            receivers += cc_reciver        self.send(receivers, message)if __name__ == &quot;__main__&quot;:    a = MailUtil(&#39;smtp.163.com&#39;, &#39;test@163.com&#39;, &#39;passwd&#39;)    html = &quot;&lt;h1&gt;test&lt;/h1&gt;&quot;    a.send_by_html([&#39;test@qq.com&#39;, &#39;test2@163.com&#39;], &quot;html&quot;, &#39;错误通知&#39;, [&#39;test@163.com&#39;])</code></pre>]]></content>
+        <content type="html"><![CDATA[<pre><code class="python">import smtplibfrom email.mime.text import MIMETextclass MailUtil(object):    def __init__(self, host, user, passwd, port=&quot;465&quot;):        if port == &quot;465&quot;:            # 加密端口            self.server = smtplib.SMTP_SSL(host, port)            # 括号中对应的是发件人邮箱账号、邮箱密码        elif port == &quot;25&quot;:            self.server = smtplib.SMTP()            self.server.connect(host, port)  # 25 为 SMTP 端口号        else:            raise AttributeError(&quot;mail port must be 465 or 25&quot;)        self.server.login(user, passwd)        self.host = host        self.user = user        self.passwd = passwd    def send(self, receivers, message):        self.server.sendmail(self.user, receivers, message.as_string())    def send_by_html(self, to_reciver: list, msg, subject, cc_reciver=[]):        &quot;&quot;&quot;抄送自己可以避免退信&quot;&quot;&quot;        if type(msg) == str:            message = MIMEText(msg, &quot;html&quot;, &#39;utf-8&#39;)            message[&#39;From&#39;] = self.user            message[&#39;To&#39;] = &quot;;&quot;.join(to_reciver)            message[&#39;Subject&#39;] = subject        elif type(msg) == MIMEText:            message = msg        else:            raise AttributeError(&quot;非法的msg&quot;)        receivers = to_reciver        if cc_reciver:            message[&#39;Cc&#39;] = &quot;;&quot;.join(cc_reciver)            receivers += cc_reciver        self.send(receivers, message)    def quit(self):        self.server.quit()if __name__ == &quot;__main__&quot;:    a = MailUtil(&#39;smtp.163.com&#39;, &#39;test@163.com&#39;, &#39;passwd&#39;)    html = &quot;&lt;h1&gt;test&lt;/h1&gt;&quot;    a.send_by_html([&#39;test@qq.com&#39;, &#39;test2@163.com&#39;], &quot;html&quot;, &#39;错误通知&#39;, [&#39;test@163.com&#39;])</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py backup_copy.md</title>
+      <link href="/2019/12/04/python/py%20backup_copy/"/>
+      <url>/2019/12/04/python/py%20backup_copy/</url>
+      
+        <content type="html"><![CDATA[<pre><code>#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;拷贝文件目录，不重复拷贝，修改过的会覆盖，源中删除的会目标中也会删除&quot;&quot;&quot;import shutilimport osdef copy(src, dst):    next_list = []    src_list = os.listdir(src)    dst_list = os.listdir(dst)    for src_name in src_list:        src_path = os.path.join(src, src_name).replace(&#39;\\&#39;, &#39;/&#39;)        dst_path = os.path.join(dst, src_name).replace(&#39;\\&#39;, &#39;/&#39;)        if src_name not in dst_list:  # dst不存在            if os.path.isdir(src_path):                os.mkdir(dst_path)                next_list.append((src_path, dst_path))            else:                shutil.copy2(src_path, dst_path)        else:            if os.path.isfile(src_path):                if os.path.getmtime(src_path) &gt; os.path.getmtime(dst_path):                    shutil.copy2(src_path, dst_path)    for dst_name in dst_list:        if dst_name not in src_list:            dst_path = os.path.join(dst, dst_name).replace(&#39;\\&#39;, &#39;/&#39;)            if os.path.isfile(dst_path):                os.remove(dst_path)            else:                shutil.rmtree(dst_path)    return next_listdef main(src, dst):    if not os.path.exists(dst):        os.makedirs(dst)    next_list = [(src, dst)]    for src, dst in next_list:        next_list += copy(src, dst)if __name__ == &quot;__main__&quot;:    main(&#39;./tmp&#39;, &#39;./ss&#39;)</code></pre>]]></content>
       
       
       <categories>
@@ -868,25 +1003,6 @@
       <url>/2019/12/03/python/py%20%E5%8F%91%E5%B8%83%E5%8C%85/</url>
       
         <content type="html"><![CDATA[<p><a href="https://testerhome.com/topics/18616" target="_blank" rel="noopener">https://testerhome.com/topics/18616</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> python </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>py 后缀文件格式说明.md</title>
-      <link href="/2019/12/03/python/py%20%E5%90%8E%E7%BC%80%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E/"/>
-      <url>/2019/12/03/python/py%20%E5%90%8E%E7%BC%80%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>.py 文件</p></blockquote><p>Python 最常用格式就是 .py (另一较常用格式为 .pyw)，由 python.exe 解释，可在控制台下运行。</p><blockquote><p>.pxd文件</p></blockquote><ul><li>.pxd 文件是由 Cython 编程语言 “编写” 而成的 Python 扩展模块头文件。</li><li>.pxd 文件类似于 C 语言的 .h 头文件，.pxd 文件中有 Cython 模块要包含的 Cython 声明 (或代码段)。</li><li>.pxd 文件可共享外部 C 语言声明，也能包含 C 编译器内联函数。.pxd 文件还可为 .pyx 文件模块提供 Cython 接口，<br>以便其它 Cython 模块可使用比 Python 更高效的协议与之进行通信。可用 cimport 关键字将 .pxd 文件导入 .pyx 模块文件中。</li></ul><blockquote><p>.pyx文件</p></blockquote><ul><li>.pyx 文件是由 Cython 编程语言 “编写” 而成的 Python 扩展模块源代码文件。</li><li>.pyx 文件类似于 C 语言的 .c 源代码文件，.pyx 文件中有 Cython 模块的源代码。</li></ul><p>不像 Python 语言可直接解释使用的 .py 文件，.pyx 文件必须先被编译成 .c 文件，<br>再编译成 .pyd (Windows 平台) 或 .so (Linux 平台) 文件，才可作为模块 import 导入使用。</p><blockquote><p>.pyd文件</p></blockquote><ul><li>.pyd 文件是非 Python，由其它编程语言 “编写-编译” 生成的 Python 扩展模块。</li></ul><p>Python 要导入 .pyd 文件，实际上是在 .pyd 文件中封装了一个 module。在 python 中使用时，<br>把它当成 module 来用就可以了，即：”import 路径名.modulename” 即可，路径名为 .pyd 文件所在的路径。</p>]]></content>
       
       
       <categories>
