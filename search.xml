@@ -4,6 +4,162 @@
   
     
     <entry>
+      <title>py backup_copy.md</title>
+      <link href="/2019/12/04/python/py%20backup_copy/"/>
+      <url>/2019/12/04/python/py%20backup_copy/</url>
+      
+        <content type="html"><![CDATA[<pre><code>#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;拷贝文件目录，不重复拷贝，修改过的会覆盖，源中删除的会目标中也会删除&quot;&quot;&quot;import shutilimport osdef copy(src, dst):    next_list = []    src_list = os.listdir(src)    dst_list = os.listdir(dst)    for src_name in src_list:        src_path = os.path.join(src, src_name).replace(&#39;\\&#39;, &#39;/&#39;)        dst_path = os.path.join(dst, src_name).replace(&#39;\\&#39;, &#39;/&#39;)        if src_name not in dst_list:  # dst不存在            if os.path.isdir(src_path):                os.mkdir(dst_path)                next_list.append((src_path, dst_path))            else:                shutil.copy2(src_path, dst_path)        else:            if os.path.isfile(src_path):                if os.path.getmtime(src_path) &gt; os.path.getmtime(dst_path):                    shutil.copy2(src_path, dst_path)    for dst_name in dst_list:        if dst_name not in src_list:            dst_path = os.path.join(dst, dst_name).replace(&#39;\\&#39;, &#39;/&#39;)            if os.path.isfile(dst_path):                os.remove(dst_path)            else:                shutil.rmtree(dst_path)    return next_listdef main(src, dst):    if not os.path.exists(dst):        os.makedirs(dst)    next_list = [(src, dst)]    for src, dst in next_list:        next_list += copy(src, dst)if __name__ == &quot;__main__&quot;:    main(&#39;./tmp&#39;, &#39;./ss&#39;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py email.md</title>
+      <link href="/2019/12/04/python/py%20email/"/>
+      <url>/2019/12/04/python/py%20email/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">import smtplibfrom email.mime.text import MIMETextclass MailUtil(object):    def __init__(self, host, user, passwd, port=&quot;465&quot;):        if port == &quot;465&quot;:            # 加密端口            self.server = smtplib.SMTP_SSL(host, port)            # 括号中对应的是发件人邮箱账号、邮箱密码        elif port == &quot;25&quot;:            self.server = smtplib.SMTP()            self.server.connect(host, port)  # 25 为 SMTP 端口号        else:            raise AttributeError(&quot;mail port must be 465 or 25&quot;)        self.server.login(user, passwd)        self.host = host        self.user = user        self.passwd = passwd    def send(self, receivers, message):        self.server.sendmail(self.user, receivers, message.as_string())    def send_by_html(self, to_reciver: list, msg, subject, cc_reciver=[]):        &quot;&quot;&quot;抄送自己可以避免退信&quot;&quot;&quot;        if type(msg) == str:            message = MIMEText(msg, &quot;html&quot;, &#39;utf-8&#39;)            message[&#39;From&#39;] = self.user            message[&#39;To&#39;] = &quot;;&quot;.join(to_reciver)            message[&#39;Subject&#39;] = subject        elif type(msg) == MIMEText:            message = msg        else:            raise AttributeError(&quot;非法的msg&quot;)        receivers = to_reciver        if cc_reciver:            message[&#39;Cc&#39;] = &quot;;&quot;.join(cc_reciver)            receivers += cc_reciver        self.send(receivers, message)if __name__ == &quot;__main__&quot;:    a = MailUtil(&#39;smtp.163.com&#39;, &#39;test@163.com&#39;, &#39;passwd&#39;)    html = &quot;&lt;h1&gt;test&lt;/h1&gt;&quot;    a.send_by_html([&#39;test@qq.com&#39;, &#39;test2@163.com&#39;], &quot;html&quot;, &#39;错误通知&#39;, [&#39;test@163.com&#39;])</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py file_info.md</title>
+      <link href="/2019/12/04/python/py%20file_info/"/>
+      <url>/2019/12/04/python/py%20file_info/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python"># coding:utf8&quot;&quot;&quot;文件、路径方面的操作&quot;&quot;&quot;import osimport timedef get_all_file_path(path):    &quot;&quot;&quot;获取路径下所有文件的路径&quot;&quot;&quot;    all_file_path = []    for info in os.walk(path):        for file_name in info[2]:            all_file_path.append(os.path.join(info[0], file_name))    return all_file_path# 把时间戳转化为时间: 1479264792 to 2016-11-16 10:53:12def timestamp2time(timestamp):    &quot;&quot;&quot;把时间戳转化为时间: 1479264792 to 2016-11-16 10:53:12&quot;&quot;&quot;    time_struct = time.localtime(timestamp)    return time.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;, time_struct)# 获取文件的大小,结果保留两位小数，默认单位单位为 KBdef get_file_size(file_path, unit=1, reserved=2):    &quot;&quot;&quot;获取文件的大小,结果保留两位小数，默认单位单位为 KB&quot;&quot;&quot;    file_size = os.path.getsize(file_path)    file_size = file_size / float(1024 ** unit)    return round(file_size, reserved)# 获取文件的访问时间def get_file_access_time(file_path):    &quot;&quot;&quot;获取文件的访问时间&quot;&quot;&quot;    t = os.path.getatime(file_path)  # 得到时间戳    return timestamp2time(t)# 获取文件的创建时间vdef get_file_create_time(file_path):    &quot;&quot;&quot;获取文件的创建时间&quot;&quot;&quot;    t = os.path.getctime(file_path)    return timestamp2time(t)# 获取文件的修改时间def get_file_modify_time(file_path):    &quot;&quot;&quot;获取文件的修改时间&quot;&quot;&quot;    t = os.path.getmtime(file_path)    return timestamp2time(t)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py pip使用.md</title>
+      <link href="/2019/12/04/python/py%20pip%E4%BD%BF%E7%94%A8/"/>
+      <url>/2019/12/04/python/py%20pip%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<p><a href="http://chenjiee815.github.io/pipzhi-nan.html" target="_blank" rel="noopener">pip指南</a></p><h1 id="pip使用"><a href="#pip使用" class="headerlink" title="pip使用"></a>pip使用</h1><blockquote><p>pip 安装特定版本的 Python 包</p></blockquote><pre><code class="python">pip install -v pycrypto==2.3</code></pre><blockquote><p>python 使用豆瓣的pypi源<br><a href="http://pypi.douban.com/simple/" target="_blank" rel="noopener">http://pypi.douban.com/simple/</a><br>注意后面要有/simple目录。 使用镜像源很简单，用-i指定就行了：   </p></blockquote><pre><code>sudo easy_install -i http://pypi.douban.com/simple/ saltTesting   sudo pip install -i http://pypi.douban.com/simple/ saltTesting</code></pre><blockquote><p> 使用requirements.txt</p></blockquote><p>生成</p><pre><code>pip freeze &gt; requirements.txt</code></pre><p>安装，在另一个环境下使用</p><pre><code>pip install -r requirements.txt</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py 生成缩略图.md</title>
+      <link href="/2019/12/04/python/py%20%E7%94%9F%E6%88%90%E7%BC%A9%E7%95%A5%E5%9B%BE/"/>
+      <url>/2019/12/04/python/py%20%E7%94%9F%E6%88%90%E7%BC%A9%E7%95%A5%E5%9B%BE/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;生成缩略图注意安装第三方包，python3.0以上&quot;&quot;&quot;import osfrom PIL import Imageimport tkinterimport tkinter.filedialogimport tkinter.messageboxclass Window:    def __init__(self):        self.root = root = tkinter.Tk()        self.Image = tkinter.StringVar()        self.status = tkinter.StringVar()        self.mstatus = tkinter.IntVar()        self.fstatus = tkinter.IntVar()        self.Image.set(&#39;bmp&#39;)        self.mstatus.set(0)        self.fstatus.set(0)        label = tkinter.Label(root, text=&#39;输入百分比&#39;)        label.place(x=5, y=5)        self.entryNew = tkinter.Entry(root)        self.entryNew.place(x=70, y=5)        self.checkM = tkinter.Checkbutton(root, text=&#39;批量转换&#39;, command=self.OnCheckM,                                          variable=self.mstatus, onvalue=1, offvalue=0)        self.checkM.place(x=5, y=30)        label = tkinter.Label(root, text=&#39;选择文件&#39;)        label.place(x=5, y=55)        self.entryFile = tkinter.Entry(root)        self.entryFile.place(x=60, y=55)        self.buttonBrowserFile = tkinter.Button(root, text=&#39;浏览&#39;, command=self.BrowserFile)        self.buttonBrowserFile.place(x=200, y=55)        label = tkinter.Label(root, text=&#39;选择目录&#39;)        label.place(x=5, y=80)        self.entryDir = tkinter.Entry(root, state=tkinter.DISABLED)        self.entryDir.place(x=60, y=80)        self.buttonBrowserDir = tkinter.Button(root, text=&#39;浏览&#39;, command=self.BrowserDir, state=tkinter.DISABLED)        self.buttonBrowserDir.place(x=200, y=80)        self.checkF = tkinter.Checkbutton(root, text=&#39;改变文件格式&#39;, command=self.OnCheckF,                                          variable=self.fstatus, onvalue=1, offvalue=0)        self.checkF.place(x=5, y=110)        frame = tkinter.Frame(root)        frame.place(x=10, y=130)        labelTo = tkinter.Label(frame, text=&#39;To&#39;)        labelTo.pack(anchor=&#39;w&#39;)        self.rBmp = tkinter.Radiobutton(frame, variable=self.Image, value=&#39;bmp&#39;, text=&#39;BMP&#39;, state=tkinter.DISABLED)        self.rBmp.pack(anchor=&#39;w&#39;)        self.rJpg = tkinter.Radiobutton(frame, variable=self.Image, value=&#39;jpg&#39;, text=&#39;JPG&#39;, state=tkinter.DISABLED)        self.rJpg.pack(anchor=&#39;w&#39;)        self.rGif = tkinter.Radiobutton(frame, variable=self.Image, value=&#39;gif&#39;, text=&#39;GIF&#39;, state=tkinter.DISABLED)        self.rGif.pack(anchor=&#39;w&#39;)        self.rPng = tkinter.Radiobutton(frame, variable=self.Image, value=&#39;png&#39;, text=&#39;PNG&#39;, state=tkinter.DISABLED)        self.rPng.pack(anchor=&#39;w&#39;)        self.buttonConv = tkinter.Button(root, text=&#39;转换&#39;, command=self.Conv)        self.buttonConv.place(x=100, y=175)        self.labelStatus = tkinter.Label(root, textvariable=self.status)        self.labelStatus.place(x=80, y=205)    def MainLoop(self):        self.root.minsize(250, 270)        self.root.maxsize(250, 270)        self.root.mainloop()    def BrowserDir(self):        directory = tkinter.filedialog.askdirectory(title=&#39;Python&#39;)        if directory:            self.entryDir.delete(0, tkinter.END)            self.entryDir.insert(tkinter.END, directory)    def BrowserFile(self):        file = tkinter.filedialog.askopenfilename(title=&#39;Python Music Player&#39;,                                                  filetypes=[(&#39;JPG&#39;, &#39;*.jpg&#39;), (&#39;BMP&#39;, &#39;*.bmp&#39;),                                                             (&#39;GIF&#39;, &#39;*.gif&#39;), (&#39;PNG&#39;, &#39;*.png&#39;)])        if file:            self.entryFile.delete(0, tkinter.END)            self.entryFile.insert(tkinter.END, file)    def OnCheckM(self):        if not self.mstatus.get():            self.entryDir.config(state=tkinter.DISABLED)            self.entryFile.config(state=tkinter.NORMAL)            self.buttonBrowserDir.config(state=tkinter.DISABLED)            self.buttonBrowserFile.config(state=tkinter.NORMAL)        else:            self.entryDir.config(state=tkinter.NORMAL)            self.entryFile.config(state=tkinter.DISABLED)            self.buttonBrowserDir.config(state=tkinter.NORMAL)            self.buttonBrowserFile.config(state=tkinter.DISABLED)    def OnCheckF(self):        if not self.fstatus.get():            self.rBmp.config(state=tkinter.DISABLED)            self.rJpg.config(state=tkinter.DISABLED)            self.rGif.config(state=tkinter.DISABLED)            self.rPng.config(state=tkinter.DISABLED)        else:            self.rBmp.config(state=tkinter.NORMAL)            self.rJpg.config(state=tkinter.NORMAL)            self.rGif.config(state=tkinter.NORMAL)            self.rPng.config(state=tkinter.NORMAL)    def Conv(self):        n = 0        if self.mstatus.get():            path = self.entryDir.get()            if path == &#39;&#39;:                tkinter.messagebox.showerror(&#39;Python tkinter&#39;, &#39;请输入路径&#39;)                return            filenames = os.listdir(path)            if self.fstatus.get():                f = self.Image.get()                for filename in filenames:                    if filename[-3:] in (&#39;bmp&#39;, &#39;jpg&#39;, &#39;gif&#39;, &#39;png&#39;):                        self.make(path + &#39;/&#39; + filename, f)                        n = n + 1            else:                for filename in filenames:                    if filename[-3:] in (&#39;bmp&#39;, &#39;jpg&#39;, &#39;gif&#39;, &#39;png&#39;):                        self.make(path + &#39;/&#39; + filename)                        n = n + 1        else:            file = self.entryFile.get()            if file == &#39;&#39;:                tkinter.messagebox.showerror(&#39;Python tkinter&#39;, &#39;请选择文件&#39;)                return            if self.fstatus.get():                f = self.Image.get()                self.make(file, f)                n = n + 1            else:                self.make(file)                n = n + 1        self.status.set(&#39;成功转换%d图片&#39; % n)    def make(self, file, format=None):        im = Image.open(file)        mode = im.mode        if mode not in (&#39;L&#39;, &#39;RGB&#39;):            im = im.convert(&#39;RGB&#39;)        width, height = im.size        s = self.entryNew.get()        if s == &#39;&#39;:            tkMessageBox.showerror(&#39;Python tkinter&#39;, &#39;请输入百分比&#39;)            return        else:            n = int(s)        nwidth = int(width * n / 100)        nheight = int(height * n / 100)        thumb = im.resize((nwidth, nheight), Image.ANTIALIAS)        if format:            thumb.save(file[:(len(file) - 4)] + &#39;_thumb.&#39; + format)        else:            thumb.save(file[:len(file) - 4] + &#39;_thumb&#39; + file[-4:])window = Window()window.MainLoop()</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py 转换图片格式.md</title>
+      <link href="/2019/12/04/python/py%20%E8%BD%AC%E6%8D%A2%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F/"/>
+      <url>/2019/12/04/python/py%20%E8%BD%AC%E6%8D%A2%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">#!/usr/bin/env python# -*- coding: utf-8 -*-&quot;&quot;&quot;转换图片格式&quot;&quot;&quot;import osfrom PIL import Imageimport tkinterimport tkinter.filedialogimport tkinter.messageboxclass Window:    def __init__(self):        self.root = root = tkinter.Tk()        label = tkinter.Label(root, text=&#39;选择目录&#39;)        label.place(x=5, y=5)        self.entry = tkinter.Entry(root)        self.entry.place(x=60, y=5)        self.buttonBrowser = tkinter.Button(root, text=&#39;浏览&#39;, command=self.Browser)        self.buttonBrowser.place(x=210, y=5)        frameF = tkinter.Frame(root)        frameF.place(x=5, y=30)        frameT = tkinter.Frame(root)        frameT.place(x=100, y=30)        self.fImage = tkinter.StringVar()        self.tImage = tkinter.StringVar()        self.status = tkinter.StringVar()        self.fImage.set(&#39;.bmp&#39;)        self.tImage.set(&#39;.bmp&#39;)        labelFrom = tkinter.Label(frameF, text=&#39;From&#39;)        labelFrom.pack(anchor=&#39;w&#39;)        labelTo = tkinter.Label(frameT, text=&#39;To&#39;)        labelTo.pack(anchor=&#39;w&#39;)        frBmp = tkinter.Radiobutton(frameF, variable=self.fImage, value=&#39;.bmp&#39;, text=&#39;BMP&#39;)        frBmp.pack(anchor=&#39;w&#39;)        frJpg = tkinter.Radiobutton(frameF, variable=self.fImage, value=&#39;.jpg&#39;, text=&#39;JPG&#39;)        frJpg.pack(anchor=&#39;w&#39;)        frGif = tkinter.Radiobutton(frameF, variable=self.fImage, value=&#39;.gif&#39;, text=&#39;GIF&#39;)        frGif.pack(anchor=&#39;w&#39;)        frPng = tkinter.Radiobutton(frameF, variable=self.fImage, value=&#39;.png&#39;, text=&#39;PNG&#39;)        frPng.pack(anchor=&#39;w&#39;)        trBmp = tkinter.Radiobutton(frameT, variable=self.tImage, value=&#39;.bmp&#39;, text=&#39;BMP&#39;)        trBmp.pack(anchor=&#39;w&#39;)        trJpg = tkinter.Radiobutton(frameT, variable=self.tImage, value=&#39;.jpg&#39;, text=&#39;JPG&#39;)        trJpg.pack(anchor=&#39;w&#39;)        trGif = tkinter.Radiobutton(frameT, variable=self.tImage, value=&#39;.gif&#39;, text=&#39;GIF&#39;)        trGif.pack(anchor=&#39;w&#39;)        trPng = tkinter.Radiobutton(frameT, variable=self.tImage, value=&#39;.png&#39;, text=&#39;PNG&#39;)        trPng.pack(anchor=&#39;w&#39;)        self.buttonConv = tkinter.Button(root, text=&#39;转换&#39;, command=self.Conv)        self.buttonConv.place(x=80, y=160)        self.labelStatus = tkinter.Label(root, textvariable=self.status)        self.labelStatus.place(x=50, y=195)    def MainLoop(self):        self.root.minsize(250, 220)        self.root.maxsize(250, 220)        self.root.mainloop()    def Browser(self):        directory = tkinter.filedialog.askdirectory(title=&#39;Python&#39;)        if directory:            self.entry.delete(0, tkinter.END)            self.entry.insert(tkinter.END, directory)    def Conv(self):        n = 0        t = self.tImage.get()        f = self.fImage.get()        path = self.entry.get()        if path == &#39;&#39;:            tkinter.messagebox.showerror(&#39;Python tkinter&#39;, &#39;请输入路径&#39;)            return        filenames = os.listdir(path)        os.mkdir(path + &#39;/&#39; + t[-3:])        for filename in filenames:            if filename[-4:] == f:                Image.open(path + &#39;/&#39; + filename).save(path + &#39;/&#39; + t[-3:] + &#39;/&#39; + filename[:-4] + t)                n = n + 1        self.status.set(&#39;成功转换%d张图片&#39; % n)window = Window()window.MainLoop()</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py datetime.md</title>
+      <link href="/2019/12/04/python/libs/py%20datetime/"/>
+      <url>/2019/12/04/python/libs/py%20datetime/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python"># coding:utf8&quot;&quot;&quot;时间方面的操作https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior&quot;&quot;&quot;from datetime import datetimeimport timeimport calendarimport pytz# timestamp ==&gt; datetimedef timestamp2datetime(timestamp):    return datetime.fromtimestamp(timestamp)# datetime ==&gt; strdef datetime2str(datetime_obj, str_format=&quot;%Y-%m-%d %H:%M:%S&quot;):    return datetime_obj.strftime(str_format)# str ==&gt; datetimedef str2datetime(time_str, str_format=&quot;%Y-%m-%d %H:%M:%S&quot;):    return datetime.strptime(time_str, str_format)# offset-naive ==&gt; offset-awaredef naive2aware(datetime_obj):    return datetime_obj.replace(tzinfo=pytz.timezone(&#39;UTC&#39;))# offset-aware ==&gt; offset-naivedef aware2naive(datetime_obj):    return datetime_obj.replace(tzinfo=None)# 返回当天星期几和这个月有几天def get_wday_and_month_range():    &quot;&quot;&quot;返回当天星期几和这个月有几天&quot;&quot;&quot;    day_now = time.localtime()    # 得到本月的天数 第一返回为月第一日为星期几（0-6）, 第二返回为此月天数    w_day, month_range = calendar.monthrange(day_now.tm_year, day_now.tm_mon)    w_day_now = w_day + day_now.tm_mday - 1    w_day_now = w_day_now % 7 + 1    return w_day_now, month_range</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+          <category> libs </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py pymysql_demo.md</title>
+      <link href="/2019/12/04/python/libs/py%20pymysql_demo/"/>
+      <url>/2019/12/04/python/libs/py%20pymysql_demo/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">import contextlibimport pymysqlconfig = {    &#39;host&#39;: &quot;&quot;,    &#39;port&#39;: &quot;&quot;,    &#39;user&#39;: &quot;&quot;,    &#39;password&#39;: &quot;&quot;,    &#39;database&#39;: &quot;&quot;,    &#39;charset&#39;: &quot;&quot;,}def get_dev_db():    return DB(host=&quot;192.168.18.168&quot;,              port=3306,              user=&quot;root&quot;,              password=&quot;s4sipoaA&quot;,              database=&quot;s4s&quot;)@contextlib.contextmanagerdef get_conn(config):    conn = None    try:        conn = pymysql.connect(**config)        yield conn    finally:        if conn:            conn.close()class DB(object):    def __init__(self, host=None, port=None, user=None, password=None, database=None, charset=&#39;utf8&#39;):        self.db = pymysql.connect(            host=host,            port=port,            user=user,            password=password,            database=database,            charset=charset        )        self.cursor = self.db.cursor()    def query_with_ping(self, sql):        self.db.ping(reconnect=True)        self.cursor.execute(sql)        return self.cursor.fetchall()    def query(self, sql):        self.cursor.execute(sql)        return self.cursor.fetchall()    def insert_with_ping(self, sql):        &quot;&quot;&quot;会在操作之前先ping一下重连&quot;&quot;&quot;        self.db.ping(reconnect=True)        self.cursor.execute(sql)        self.db.commit()    def insert(self, sql):        self.cursor.execute(sql)        self.db.commit()    def get_one(self, sql):        self.cursor.execute(sql)        return self.cursor.fetchone()    def close(self):        self.cursor.close()        self.db.close()    def get_all_with_dict(self, sql):        rows = self.query(sql)        names = [d[0] for d in self.cursor.description]        data = [dict(zip(names, row)) for row in rows]        return data    def get_one_with_dict(self, sql):        row = self.get_one(sql)        names = [d[0] for d in self.cursor.description]        data = dict(zip(names, row))        return data</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+          <category> libs </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>py simple_orm.md</title>
       <link href="/2019/12/04/python/py%20simple_orm/"/>
       <url>/2019/12/04/python/py%20simple_orm/</url>
@@ -603,25 +759,6 @@
       <categories>
           
           <category> others </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>pip使用.md</title>
-      <link href="/2019/12/03/python/pip%E4%BD%BF%E7%94%A8/"/>
-      <url>/2019/12/03/python/pip%E4%BD%BF%E7%94%A8/</url>
-      
-        <content type="html"><![CDATA[<p><a href="http://chenjiee815.github.io/pipzhi-nan.html" target="_blank" rel="noopener">pip指南</a></p><h1 id="pip使用"><a href="#pip使用" class="headerlink" title="pip使用"></a>pip使用</h1><blockquote><p>pip 安装特定版本的 Python 包</p></blockquote><pre><code class="python">pip install -v pycrypto==2.3</code></pre><blockquote><p>python 使用豆瓣的pypi源<br><a href="http://pypi.douban.com/simple/" target="_blank" rel="noopener">http://pypi.douban.com/simple/</a><br>注意后面要有/simple目录。 使用镜像源很简单，用-i指定就行了：   </p></blockquote><pre><code>sudo easy_install -i http://pypi.douban.com/simple/ saltTesting   sudo pip install -i http://pypi.douban.com/simple/ saltTesting</code></pre><blockquote><p> 使用requirements.txt</p></blockquote><p>生成</p><pre><code>pip freeze &gt; requirements.txt</code></pre><p>安装，在另一个环境下使用</p><pre><code>pip install -r requirements.txt</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> python </category>
           
       </categories>
       
