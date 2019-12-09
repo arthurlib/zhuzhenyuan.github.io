@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title>linux ssh穿透端口转发.md</title>
+      <link href="/2019/12/09/linux/linux%20ssh%E7%A9%BF%E9%80%8F%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
+      <url>/2019/12/09/linux/linux%20ssh%E7%A9%BF%E9%80%8F%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="shell">#-L (-Local) 正向隧道ssh -L [&lt;bindHost&gt;:]&lt;sourcePort&gt;:&lt;forwardToHost&gt;:&lt;onPort&gt; &lt;connectToHost&gt;#ssh -L 127.0.0.1:8080:127.0.0.1:8080 root@47.102.125.88# * connectToHost: 远程设备# * bindHost: 绑定的来源ip，省略时表示所有 （对当前机器）# * sourcePort: 发往的本机端口 （对当前机器）# * forwardToHost: 转发的ip （对远程设备）# * onPort: 转发的端口 （对远程设备）#-R (-Remote) 反向隧道ssh -R [&lt;bindHost&gt;:]&lt;sourcePort&gt;:&lt;forwardToHost&gt;:&lt;onPort&gt; &lt;connectToHost&gt;#ssh -R 127.0.0.1:8088:127.0.0.1:8888 root@47.102.125.88\# * connectToHost: 远程设备# * bindHost: 绑定的来源ip，省略时表示所有 （对远程设备）# * sourcePort: 发往的本机端口 （对远程设备）# * forwardToHost: 转发的ip （对当前机器）# * onPort: 转发的端口 （对当前机器）# * -f：使 SSH 在建立连接之后保持在后台运行。# * -N：告诉 SSH，我们只希望建立隧道，而不会在远程主机上执行任何指令。# * -T：告诉 SSH，我们只希望建立隧道，因而不需要创建虚拟终端。# * -C：允许 SSH 压缩数据。</code></pre><pre><code class="shell"># 穿透示例# 内网机ssh -R 2121:127.0.0.1:22 my# 跳板机ssh -L :2345:127.0.0.1:2121 localhostssh -p 2345 user@ip</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux ssh.md</title>
+      <link href="/2019/12/09/linux/cmd/linux%20ssh/"/>
+      <url>/2019/12/09/linux/cmd/linux%20ssh/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>生成</p></blockquote><pre><code>ssh-keygen -t rsa -C &quot;yourmail@gmail.com&quot;# ssh-keygen -f othername # 来生成指定的文件名，或者生成之后# 但是ssh命令默认只会读取 id_rsa这个私钥，所以如果 是其它 的名字需要添加配置文件 ~/.ssh/config也可以两个改名</code></pre><blockquote><p>在服务器上安装公钥</p></blockquote><pre><code>[root@host ~]$ cd .ssh[root@host .ssh]$ cat id_rsa.pub &gt;&gt; authorized_keys</code></pre><blockquote><p>如此便完成了公钥的安装。为了确保连接成功，请保证以下文件权限正确：</p></blockquote><pre><code>[root@host .ssh]$ chmod 600 authorized_keys[root@host .ssh]$ chmod 700 ~/.ssh</code></pre><blockquote><p>设置 SSH，打开密钥登录功能</p></blockquote><pre><code>#编辑 /etc/ssh/sshd_config 文件，进行如下设置：RSAAuthentication yesPubkeyAuthentication yes#另外，请留意 root 用户能否通过 SSH 登录：PermitRootLogin yes#当你完成全部设置，并以密钥方式登录成功后，再禁用密码登录：PasswordAuthentication no#最后，重启 SSH 服务：[root@host .ssh]$ service sshd restart</code></pre><blockquote><p>本地配置</p></blockquote><pre><code># 修改 .ssh/cofnig 文件，添加示例如下Host 别名    hostName 192.168.1.2    Port 22    User root</code></pre><blockquote><p>重置服务器后，要清除旧的信息</p></blockquote><pre><code>ssh-keygen -R 你要访问的IP地址</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+          <category> cmd </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>pi raspi-config.md</title>
       <link href="/2019/12/05/raspberry/pi%20raspi-config/"/>
       <url>/2019/12/05/raspberry/pi%20raspi-config/</url>
@@ -1559,27 +1599,6 @@
       <url>/2019/12/03/linux/cmd/linux%20sed/</url>
       
         <content type="html"><![CDATA[<blockquote><p>Linux sed 命令是利用脚本来处理文本文件。<br>sed 可依照脚本的指令来处理、编辑文本文件。<br>Sed 主要用来自动编辑一个或多个文件、简化对文件的反复操作、编写转换程序等</p></blockquote><p>语法:<br>sed [-hnV][-e<script>][-f<script文件>][文本文件]</p><blockquote><p>gsed -n '/a/p' a</p></blockquote><p>参数说明:</p><ul><li>-e<script>或--expression=<script> 以选项中指定的script来处理输入的文本文件。<br>（-e : 可以在同一行里执行多条命令,不加的话写了多个只执行第一个）</li><li>-f<script文件>或--file=<script文件> 以选项中指定的script文件来处理输入的文本文件。</li><li>-h或--help 显示帮助。</li><li>-n或--quiet或--silent 仅显示script处理后的结果。</li><li>-V或--version 显示版本信息。</li></ul><p>动作说明:</p><ul><li>a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)</li><li>c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行</li><li>d ：删除，因为是删除啊，所以 d 后面通常不接任何咚咚；</li><li>i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；</li><li>p ：打印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～</li><li>s ：取代，可以直接进行取代的工作,通常这个 s 的动作可以搭配正规表示法！例如 1,20s/old/new/g</li></ul><pre><code>删除行# 将 /etc/passwd 的内容列出并且列印行号，同时，请将第 2~5 行删除nl /etc/passwd | sed &#39;2,5d&#39;#只要删除第 2 行nl /etc/passwd | sed &#39;2d&#39;#要删除第 3 到最后一行nl /etc/passwd | sed &#39;3,$d&#39;添加行#在第二行后(亦即是加在第三行)加上『drink tea?』字样nl /etc/passwd | sed &#39;2a drink tea&#39;#那如果是要在第二行前nl /etc/passwd | sed &#39;2i drink tea&#39; #增加两行以上，每一行之间都必须要以反斜杠&#39;\&#39;来进行新行的添加nl /etc/passwd | sed &#39;2a Drink tea or ......\&gt; drink beer ?&#39;替换与显示(以行为单位)#将第2-5行的内容取代成为『No 2-5 number』nl /etc/passwd | sed &#39;2,5c No 2-5 number&#39;#仅列出 /etc/passwd 文件内的第 5-7 行nl /etc/passwd | sed -n &#39;5,7p&#39;数据的搜索并显示#搜索 /etc/passwd有root关键字的行nl /etc/passwd | sed &#39;/root/p&#39;#如果root找到，除了输出所有行，还会输出匹配行#使用-n的时候将只打印包含模板的行nl /etc/passwd | sed -n &#39;/root/p&#39;数据的搜寻并删除#删除/etc/passwd所有包含root的行，其他行输出nl /etc/passwd | sed  &#39;/root/d&#39;数据的搜寻并执行命令#搜索/etc/passwd,找到root对应的行，#执行后面花括号中的一组命令，每个命令之间用分号分隔，#这里把bash替换为blueshell，再输出这行,s替换;结尾，最后的q是退出nl /etc/passwd | sed -n &#39;/root/{s/bash/blueshell/;p;q;}&#39;# 加上 g 表示全部完全匹配# sed &#39;s/要被取代的字串/新的字串/g&#39;/sbin/ifconfig eth0 | grep &#39;inet addr&#39; | sed &#39;s/^.*addr://g&#39; | sed &#39;s/Bcast.*$//g&#39;多点编辑,-e表示多点编辑# 一条sed命令，删除/etc/passwd第三行到末尾的数据，并把bash替换为blueshellnl /etc/passwd | sed -e &#39;3,$d&#39; -e &#39;s/bash/blueshell/&#39;直接修改文件内容，-i 选项sed -i &#39;$a # This is a test&#39; regular_express.txt</code></pre><blockquote><p>报错：command a expects \ followed by text</p></blockquote><pre><code>参数“i”的用途是直接在文件中进行替换。为防止误操作带来灾难性的后果，sed在替换前可以自动对文件进行备份，前提是需要提供一个后缀名。从上面对参数“i”的详细说明中可以看到，mac osx下是强制要求备份的（当然也可以使用空字符串来取消备份），但centos下是可选的。如果不需要备份文件，mac osx下可以使用如下命令完成替换操作：sed -i &#39;&#39; &#39;s/oldstring/newstring/g&#39; full-path-file</code></pre><blockquote><p>报错：command a expects \ followed by text</p></blockquote><pre><code>原因: macos 用sed命令做插入等命令会爆这个错，主要是因为mac的sed命令有点老解决方法1：在你敲完sed -n &#39;5a  之后 敲一个反斜杠 换行然后输入其余的命令解决方法2(推荐)：brew install gnu-sed   用gnu的sed（centos版本的sed）安装下来后为指令为 gsed</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> linux </category>
-          
-          <category> cmd </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>linux ssh.md</title>
-      <link href="/2019/12/03/linux/cmd/linux%20ssh/"/>
-      <url>/2019/12/03/linux/cmd/linux%20ssh/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>生成</p></blockquote><pre><code>ssh-keygen -t rsa -C &quot;yourmail@gmail.com&quot;# ssh-keygen -f othername # 来生成指定的文件名，或者生成之后# 但是ssh命令默认只会读取 id_rsa这个私钥，所以如果 是其它 的名字需要添加配置文件 ~/.ssh/config也可以两个改名</code></pre><blockquote><p>在服务器上安装公钥</p></blockquote><pre><code>[root@host ~]$ cd .ssh[root@host .ssh]$ cat id_rsa.pub &gt;&gt; authorized_keys</code></pre><blockquote><p>如此便完成了公钥的安装。为了确保连接成功，请保证以下文件权限正确：</p></blockquote><pre><code>[root@host .ssh]$ chmod 600 authorized_keys[root@host .ssh]$ chmod 700 ~/.ssh</code></pre><blockquote><p>设置 SSH，打开密钥登录功能</p></blockquote><pre><code>#编辑 /etc/ssh/sshd_config 文件，进行如下设置：RSAAuthentication yesPubkeyAuthentication yes#另外，请留意 root 用户能否通过 SSH 登录：PermitRootLogin yes#当你完成全部设置，并以密钥方式登录成功后，再禁用密码登录：PasswordAuthentication no#最后，重启 SSH 服务：[root@host .ssh]$ service sshd restart</code></pre><blockquote><p>本地配置</p></blockquote><pre><code># 修改 .ssh/cofnig 文件，添加示例如下Host 别名    hostName 192.168.1.2    Port 22    User root</code></pre><blockquote><p>重置服务器后</p></blockquote><pre><code>ssh-keygen -R 你要访问的IP地址</code></pre>]]></content>
       
       
       <categories>
