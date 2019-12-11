@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>linux init.d目录与rc.local脚本.md</title>
+      <link href="/2019/12/11/linux/linux%20init.d%E7%9B%AE%E5%BD%95%E4%B8%8Erc.local%E8%84%9A%E6%9C%AC/"/>
+      <url>/2019/12/11/linux/linux%20init.d%E7%9B%AE%E5%BD%95%E4%B8%8Erc.local%E8%84%9A%E6%9C%AC/</url>
+      
+        <content type="html"><![CDATA[<h4 id="etc-init-d-系统级别"><a href="#etc-init-d-系统级别" class="headerlink" title="/etc/init.d (系统级别)"></a>/etc/init.d (系统级别)</h4><blockquote><p>init.d目录包含许多系统各种服务的启动和停止脚本。它控制着所有从acpid到x11-common的各种事务。当然，init.d远远没有这么简单。<br>（注：acpid 是linux操作系统新型电源管理标准 ；X11也叫做X Window系统，X Window系统 (X11或X)是一种位图显示的 视窗系统 。它是在 Unix 和 类Unix 操作系统 ，以及 OpenVMS 上建立图形用户界面 的标准工具包和协议，并可用于几乎已有的现代操作系统）。</p></blockquote><blockquote><p>当你查看/etc目录时，会发现许多rc#.d 形式存在的目录（这里#代表一个指定的初始化级别，范围是0~6）。<br>在这些目录之下，包含了许多对进程进行控制的脚本。这些脚本以”K”开头或者以”S”开头。以K开头的脚本运行在以S开头的脚本之前。<br>这些脚本放置的地方，将决定这些脚本什么时候开始运行。在这些目录之间，系统服务一起合作，就像运行状况良好的机器一样。然而，有时候你希望能在不使用kill 或killall 命令的情况下，能干净的启动或杀死一个进程。这时/etc/init.d能够派上用场了</p></blockquote><blockquote><p>可以找到这个目录：/etc/rc.d/init.d。实际上无论init.d放在什么地方，它都发挥着相同的作用。</p></blockquote><blockquote><p>为了能够使用init.d目录下的脚本，你需要有root权限或sudo权限。每个脚本都将被作为一个命令运行，该命令的结构大致如下所示：  </p></blockquote><ul><li>0：关机(不要设置这个！)</li><li>1：单用户(类似于windows操作系统的安全模式)</li><li>2：多用户状态没有网络服务     </li><li>3：多用户状态由网络服务(在做开发时，通常设置成这个启动级别，直接进入到命令行的界面)</li><li>4：系统未使用保留给用户(不要设置这个！)       </li><li>5：图形界面(这是linux默认的启动级别，直接进入图形界面)</li><li>6：系统重启(不要设置这个！)</li></ul><pre><code>/etc/init.d/command 选项</code></pre><blockquote><p>comand是实际运行的命令，选项可以有如下几种：</p></blockquote><ul><li>start</li><li>stop</li><li>reload</li><li>restart</li><li>force-reload</li></ul><blockquote><p>大多数的情况下，你会使用start,stop,restart选项。例如，如果你想关闭网络，你可以使用如下形式的命令：  </p></blockquote><pre><code>/etc/init.d/networking stop</code></pre><h4 id="etc-rc-local-系统启动完成后"><a href="#etc-rc-local-系统启动完成后" class="headerlink" title="/etc/rc.local(系统启动完成后)"></a>/etc/rc.local(系统启动完成后)</h4><blockquote><p>rc.local 脚本是在系统初始化级别脚本运行之后再执行的，因此可以安全地在里面添加你想在系统启动之后执行的脚本。常见的情况是你可以再里面添加nfs挂载/mount脚本。例如开机启动 nginx</p></blockquote><pre><code>/etc/init.d/nginx start</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux 设置开机自启.md</title>
+      <link href="/2019/12/11/linux/linux%20%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/"/>
+      <url>/2019/12/11/linux/linux%20%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Linux-设置开机启动项的几种方法"><a href="#Linux-设置开机启动项的几种方法" class="headerlink" title="Linux 设置开机启动项的几种方法"></a>Linux 设置开机启动项的几种方法</h4><blockquote><p>方法一：编辑rc.loacl脚本</p></blockquote><pre><code>Ubuntu开机之后会执行/etc/rc.local文件中的脚本。所以我们可以直接在/etc/rc.local中添加启动脚本。$ vim /etc/rc.local</code></pre><blockquote><p>方法二：添加一个开机启动服务。</p></blockquote><pre><code># 将你的启动脚本复制到 /etc/init.d目录下，并设置脚本权限, 假设脚本为testmv test /etc/init.d/testsudo chmod 755 /etc/init.d/test# 将该脚本放倒启动列表中去cd /etc/init.dsudo update-rc.d test defaults 95# 注：其中数字95是脚本启动的顺序号，按照自己的需要相应修改即可。# 在你有多个启动脚本，而它们之间又有先后启动的依赖关系时你就知道这个数字的具体作用了。# 将该脚本从启动列表中剔除$ cd /etc/init.d$ sudo update-rc.d -f test remove</code></pre><blockquote><p>方法三</p></blockquote><pre><code># crontab 也可以设置开机自启crontab -e @reboot /home/user/test.sh</code></pre><h4 id="每次登录自动执行"><a href="#每次登录自动执行" class="headerlink" title="每次登录自动执行"></a>每次登录自动执行</h4><p>也可以设置每次登录自动执行脚本，在/etc/profile.d/目录下新建sh脚本,<br>/etc/profile会遍历/etc/profile.d/*.sh</p><p>另外，几个脚本的区别： </p><blockquote><p>系统级别</p></blockquote><ul><li>/etc/profile 是所有用户的环境变量</li><li>/etc/enviroment是系统的环境变量</li></ul><ol><li>/etc/profile: 此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行. 并从/etc/profile.d目录的配置文件中搜集shell的设置。</li><li>/etc/bashrc 或 /etc/bash.bashrc: 为每一个运行bash shell的用户执行此文件.当bash shell被打开时,该文件被读取（即每次新开一个终端，都会执行bashrc）。</li></ol><blockquote><p>用户级别</p></blockquote><ol><li><p>~/.bash_profile 或 ~/.profile: 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次。默认情况下,设置一些环境变量,执行用户的.bashrc文件。</p></li><li><p>~/.bashrc: 该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该该文件被读取。</p></li><li><p><del>/.bash_logout: 当每次退出系统(退出bash shell)时,执行该文件. 另外,/etc/profile中设定的变量(全局)的可以作用于任何用户,而</del>/.bashrc等中设定的变量(局部)只能继承 /etc/profile中的变量,他们是”父子”关系。</p></li><li><p>~/.bash_profile: 是交互式、login 方式进入 bash 运行的</p></li><li><p>~/.bashrc 是交互式 non-login 方式进入 bash </p><blockquote><p>通常二者设置大致相同，所以通常前者会调用后者</p></blockquote></li></ol><h4 id="登录linux时的执行顺序"><a href="#登录linux时的执行顺序" class="headerlink" title="登录linux时的执行顺序"></a>登录linux时的执行顺序</h4><p>在登录Linux时</p><ol><li><p>首先启动 /etc/profile 文件，</p></li><li><p>然后再启动用户目录下的 <del>/.bash_profile、 ~/.bash_login或 ~/.profile文件中的其中一个<br>(根据不同的linux操作系统的不同，命名不一样),<br>执行的顺序为：</del>/.bash_profile、 <del>/.bash_login、 ~/.profile。<br>~/.profile 或者 ~/.bash_profile 还会执行 ~/.bashrc，</del>/.bashrc 一般还会 调用 /etc/bashrc</p></li><li><p>在退出shell时，还会执行 ~/.bash_logout文件</p></li></ol><ul><li>/etc/profile -&gt;/etc/enviroment –&gt;$HOME/.profile –&gt;$HOME/.env</li></ul><blockquote><p>重新加载 .sh 文件</p></blockquote><pre><code>. t.shsource t.sh</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>linux ssh穿透端口转发.md</title>
       <link href="/2019/12/09/linux/linux%20ssh%E7%A9%BF%E9%80%8F%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
       <url>/2019/12/09/linux/linux%20ssh%E7%A9%BF%E9%80%8F%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/</url>
