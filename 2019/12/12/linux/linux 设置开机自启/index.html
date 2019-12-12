@@ -516,11 +516,11 @@
         </a>
         
         <a  class="linux "
-           href="/2019/12/11/linux/linux%20%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/"
+           href="/2019/12/12/linux/linux%20%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="linux 设置开机自启.md">linux 设置开机自启.md</span>
-            <span class="post-date" title="2019-12-11 18:08:02">2019/12/11</span>
+            <span class="post-date" title="2019-12-12 09:23:20">2019/12/12</span>
         </a>
         
         <a  class="others "
@@ -1521,7 +1521,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-11 18:14:23'>2019-12-11 18:08</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-12 09:23:42'>2019-12-12 09:23</time>
         
     </div>
     <div class="article-meta">
@@ -1595,16 +1595,16 @@ crontab -e
 <p>用户级别</p>
 </blockquote>
 <ol>
-<li><p>~/.bash_profile 或 ~/.profile: 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次。默认情况下,设置一些环境变量,执行用户的.bashrc文件。</p>
-</li>
-<li><p>~/.bashrc: 该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该该文件被读取。</p>
-</li>
-<li><p><del>/.bash_logout: 当每次退出系统(退出bash shell)时,执行该文件. 另外,/etc/profile中设定的变量(全局)的可以作用于任何用户,而</del>/.bashrc等中设定的变量(局部)只能继承 /etc/profile中的变量,他们是”父子”关系。</p>
-</li>
-<li><p>~/.bash_profile: 是交互式、login 方式进入 bash 运行的</p>
-</li>
-<li><p>~/.bashrc 是交互式 non-login 方式进入 bash </p>
+<li>~/.bash_profile 或 ~/.profile: 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次。默认情况下,设置一些环境变量,执行用户的.bashrc文件。</li>
+<li>~/.bashrc: 该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该该文件被读取。</li>
+<li>~/.bash_logout: 当每次退出系统(退出bash shell)时,执行该文件. 另外,/etc/profile中设定的变量(全局)的可以作用于任何用户,而~/.bashrc等中设定的变量(局部)只能继承 /etc/profile中的变量,他们是”父子”关系。</li>
+</ol>
 <blockquote>
+<p>补充</p>
+</blockquote>
+<ol>
+<li>~/.bash_profile: 是交互式、login 方式进入 bash 运行的</li>
+<li>~/.bashrc 是交互式 non-login 方式进入 bash <blockquote>
 <p>通常二者设置大致相同，所以通常前者会调用后者</p>
 </blockquote>
 </li>
@@ -1613,7 +1613,7 @@ crontab -e
 <ol>
 <li><p>首先启动 /etc/profile 文件，</p>
 </li>
-<li><p>然后再启动用户目录下的 <del>/.bash_profile、 ~/.bash_login或 ~/.profile文件中的其中一个<br>(根据不同的linux操作系统的不同，命名不一样),<br>执行的顺序为：</del>/.bash_profile、 <del>/.bash_login、 ~/.profile。<br>~/.profile 或者 ~/.bash_profile 还会执行 ~/.bashrc，</del>/.bashrc 一般还会 调用 /etc/bashrc</p>
+<li><p>然后再启动用户目录下的 ~/.bash_profile、 ~/.bash_login或 ~/.profile文件中的其中一个<br>(根据不同的linux操作系统的不同，命名不一样),<br>执行的顺序为：~/.bash_profile、 ~/.bash_login、 ~/.profile。<br>~/.profile 或者 ~/.bash_profile 还会执行 ~/.bashrc，~/.bashrc 一般还会 调用 /etc/bashrc</p>
 </li>
 <li><p>在退出shell时，还会执行 ~/.bash_logout文件</p>
 </li>
