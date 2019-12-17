@@ -4,6 +4,122 @@
   
     
     <entry>
+      <title>go.md</title>
+      <link href="/2019/12/17/undone/go/"/>
+      <url>/2019/12/17/undone/go/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank" rel="noopener">go教程</a></p><p>go build 编译自身包和依赖包<br>go install 编译并安装自身包和依赖包<br>你可以通过如下命令安装：<br>go install codesite.ext/author/goExample/goex<br>包安装到本地它会从远端仓库下载包：检出、编译和安装一气呵成</p><p>go get github.com/NNNN/uc。 下载包</p><p>gofmt 格式化代码<br>在命令行输入 gofmt –w program.go 会格式化该源文件的代码然后将格式化后的代码覆盖原始内容（如果不加参数 -w 则只会打印格式化后的结果而不重写文件）；gofmt -w *.go 会格式化并重写所有 Go 源文件；gofmt map1 会格式化并重写 map1 目录及其子目录下的所有 Go 源文件。</p><p>生成代码文档 godoc使用 go doc args<br>godoc -http=:6060</p><p>go fix 用于将你的 Go 代码从旧的发行版迁移到最新的发行版，它主要负责简单的、重复的、枯燥无味的修改工作，如果像 API 等复杂的函数修改，工具则会给出文件名和代码行数的提示以便让开发人员快速定位并升级代码<br>go test 是一个轻量级的单元测试框架</p><p>反引号<br><code>原始字符串</code></p><h4 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a>环境变量设置</h4><pre><code># 安装目录export GOROOT=go的安装目录# 工作目录export GOPATH=/Users/zhu/go_workspace/s4s:/Users/zhu/go_workspace/go:/Users/zhu/go_workspace/test# 把所有工作目录下的bin目录加入pathexport PATH=$PATH:${GOPATH//://bin:}/bin</code></pre><h4 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h4><ul><li>相对路径     import   “./model”<br>//当前文件同一目录的model目录，但是不建议这种方式import</li><li></li><li>绝对路径    import   “shorturl/model”<br>//加载GOPATH/src/shorturl/model模块</li></ul><ol><li>点操作: import( . “fmt” ) 可以不通过包名来使用其中的项目</li><li>别名操作: import( f “fmt” )</li><li>_操作 import(_“github.com/ziutek/mymysql/godrv” )<blockquote><p>_操作其实只是引入该包。当导入一个包时，它所有的init()函数就会被执行，<br>但有些时候并非真的需要使用这些包，仅仅是希望它的init()函数被执行而已。<br>这个时候就可以使用_操作引用该包了。即使用_操作引用包是无法通过包名来调用包中的导出函数，<br>而是只是为了简单的调用其init函数()。</p></blockquote></li></ol><h4 id="go-get-无反应、访问github-com速度慢、没反应问题的解决方案"><a href="#go-get-无反应、访问github-com速度慢、没反应问题的解决方案" class="headerlink" title="go get 无反应、访问github.com速度慢、没反应问题的解决方案"></a>go get 无反应、访问github.com速度慢、没反应问题的解决方案</h4><p>修改host，下面是一个示例，可以用<a href="https://www.ipaddress.com/ip-lookup" target="_blank" rel="noopener">IP查找工具</a>来获取IP地址设置hosts，速度杠杠的</p><pre><code>vim /etc/hosts192.30.253.112 github.com151.101.185.194 github.global.ssl.fastly.net</code></pre><h4 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h4><ul><li>GOOS：目标平台的操作系统（darwin、freebsd、linux、windows） </li><li>GOARCH：目标平台的体系架构（386、amd64、arm） </li><li>交叉编译不支持 CGO 所以要禁用它</li></ul><blockquote><p>Mac 下编译 Linux 和 Windows 64位可执行程序</p></blockquote><pre><code>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.goCGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go</code></pre><blockquote><p>Linux 下编译 Mac 和 Windows 64位可执行程序</p></blockquote><pre><code>CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build main.goCGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go</code></pre><blockquote><p>Windows 下编译 Mac 和 Linux 64位可执行程序</p></blockquote><pre><code>SET CGO_ENABLED=0SET GOOS=darwinSET GOARCH=amd64go build main.goSET CGO_ENABLED=0SET GOOS=linuxSET GOARCH=amd64go build main.go</code></pre><p><strong>上面的命令编译 64 位可执行程序，你当然应该也会使用 386 编译 32 位可执行程序</strong></p><h4 id="解决-golang-org-x-下包下载不下来的问题"><a href="#解决-golang-org-x-下包下载不下来的问题" class="headerlink" title="解决 golang org x 下包下载不下来的问题"></a>解决 golang org x 下包下载不下来的问题</h4><pre><code>由于众所周知的原因，golang在下载golang.org的包时会出现访问不了的情况。尤其是x包，很多库都依赖于它。由于x包在github上都有镜像，我们可以使用从github.com上把代码clone到创建的golang。org/x目录上就OK了git clone https://github.com/golang/sys.git</code></pre><pre><code>golang.org/x包放到了https://github.com/golang/text中，下载时需要先在本地建立golang.org/x的目录后，再下载。mkdir -p golang.org/xgit clone https://github.com/golang/text.git或go get github.com/golang/text后将包移到x目录</code></pre><h4 id="init-函数"><a href="#init-函数" class="headerlink" title="init 函数"></a>init 函数</h4><p>变量除了可以在全局声明中初始化，也可以在 init 函数中初始化。这是一类非常特殊的函数，它不能够被人为调用，而是在每个包完成初始化后自动执行，并且执行优先级比 main 函数高。</p><h4 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h4><p>在循环中使用加号 + 拼接字符串并不是最高效的做法，更好的办法是使用函数 strings.Join()（第 4.7.10 节），有没有更好地办法了？有！使用字节缓冲（bytes.Buffer）拼接更加给力</p><h4 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h4><p>如果你需要在应用程序在经过一定时间或周期执行某项任务（事件处理的特例），则可以使用 time.After 或者 time.Ticker：我们将会在第 14.5 节讨论这些有趣的事情。 另外，time.Sleep（Duration d） 可以实现对某个进程（实质上是 goroutine）时长为 d 的暂停</p><h4 id="静态编译"><a href="#静态编译" class="headerlink" title="静态编译"></a>静态编译</h4><pre><code>GOOS=linux CGO_ENABLED=0 go build -ldflags=&quot;-s -w&quot; -o app app.go你可能有人还使用-a参数，它强制重新编译相关的包,一般你不会使用它。-s 忽略符号表和调试信息，-w忽略DWARF符号表，通过这两个参数，可以进一步减少编译的程序的尺寸，更多的参数可以参考go link, 或者 go tool link -help(另一个有用的命令是go tool compile -help)。你也可以使用strip工具对编译的Go程序进行裁剪。本身Go是静态编译的， 对于CGO, 如果设置CGO_ENABLED=0,则完全静态编译，不会再依赖动态库</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> undone </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>k8s.md</title>
+      <link href="/2019/12/17/undone/k8s/"/>
+      <url>/2019/12/17/undone/k8s/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> undone </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>lua.md</title>
+      <link href="/2019/12/17/undone/lua/"/>
+      <url>/2019/12/17/undone/lua/</url>
+      
+        <content type="html"><![CDATA[<p>注释<br>单行注释<br>两个减号是单行注释:</p><p>–<br>多行注释<br>–[[<br> 多行注释<br> 多行注释<br> –]]</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> undone </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py.md</title>
+      <link href="/2019/12/17/undone/py/"/>
+      <url>/2019/12/17/undone/py/</url>
+      
+        <content type="html"><![CDATA[<p>一次批量替换</p><p>result.translate(str.maketrans(‘①②③④⑤⑥⑦⑧⑨’, ‘123456789’))</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> undone </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>rust.md</title>
+      <link href="/2019/12/17/undone/rust/"/>
+      <url>/2019/12/17/undone/rust/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html" target="_blank" rel="noopener">rust教程</a></p><p>rustup: 一个管理 Rust 版本和相关工具的命令行工具</p><p>安装： curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p><p>更新 Rust</p><p>rustup update</p><p>卸载 Rust 和 rustup</p><p>rustup self uninstall</p><p>编译运行</p><p>rustc file.rs</p><p>fn main() {<br>    println!(“Hello, world!”);<br>}</p><p>当看到符号 ! 的时候，就意味着调用的是宏而不是普通函数。</p><p>rustfmt: 代码文件格式化工具</p><p>cargo: 是rust的构建系统和包管理器</p><p>cargo build: 编译，debug<br>cargo run: 编译运行<br>cargo check: 检查是否能成功编译<br>cargo build –release: 正式发布<br>cargo new movie-lib –lib: 创建lib项目，库工程crate<br>cargo new movie-lib-test –bin</p><p>语法</p><p>let x = 5; 定义不可变变量<br>let mut y = 0; 定义可变变量</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> undone </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker 构建镜像.md</title>
+      <link href="/2019/12/17/server/docker/docker%20%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/"/>
+      <url>/2019/12/17/server/docker/docker%20%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/</url>
+      
+        <content type="html"><![CDATA[<p>参考：<br><a href="https://account.daocloud.io/signin" target="_blank" rel="noopener">daoCloud平台</a>使用</p><hr><h4 id="从容器构建image"><a href="#从容器构建image" class="headerlink" title="从容器构建image"></a>从容器构建image</h4><ol><li>先对已经运行的(存在)容器进行一些修改，例如 apt update，更新一下软件包</li></ol><pre><code class="shell">docker run -i -t ubuntu:14.04 /bin/bashapt update &amp;&amp; apt install -y vim# 重新进入容器# docker container exec -it 7054aa92bf8e /bin/bash# docker attact 7054aa92bf8e</code></pre><ol start="2"><li>commit命令用来将容器转化为镜像，运行下面的命令，我们可以讲刚刚的容器转换为镜像:</li></ol><pre><code class="shell"># docker commit 的语法格式为：# docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]]sudo docker commit -m &quot;Added nginx from ubuntu14.04&quot; -a &quot;saymagic&quot; 79c761f627f3 saymagic/ubuntu-nginx:v1说明-m: 参数用来来指定提交的说明信息-a: 可以指定用户信息的79c761f627f3: 代表的是容器的idsaymagic/ubuntu-nginx:v1: 指定目标镜像的用户名、仓库名和tag信息。创建成功后会返回这个镜像的ID信息。# 还可以用 docker history 具体查看镜像内的历史记录docker history nginx:v2# 示例，手动构建完镜像之后要进行清理，以此来减小镜像体积FROM debian:stretchRUN buildDeps=&#39;gcc libc6-dev make wget&#39; \    &amp;&amp; apt-get update \    &amp;&amp; apt-get install -y $buildDeps \    &amp;&amp; wget -O redis.tar.gz &quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot; \    &amp;&amp; mkdir -p /usr/src/redis \    &amp;&amp; tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \    &amp;&amp; make -C /usr/src/redis \    &amp;&amp; make -C /usr/src/redis install \    &amp;&amp; rm -rf /var/lib/apt/lists/* \    &amp;&amp; rm redis.tar.gz \    &amp;&amp; rm -r /usr/src/redis \    &amp;&amp; apt-get purge -y --auto-remove $buildDeps</code></pre><h4 id="从dockerfile构建image"><a href="#从dockerfile构建image" class="headerlink" title="从dockerfile构建image"></a>从dockerfile构建image</h4><ol><li>进入一个目录，新建目录 www,在其中添加index.html文件</li></ol><ol start="2"><li>编写Dockerfile文件</li></ol><pre><code class="shell"># filename: DockerfileFROM ubuntu:14.04MAINTAINER zhuzhenyuan&lt;zhenyuanzhu@outlook.com&gt;RUN apt-get update &amp;&amp; apt-get install -y nginxCOPY ./www /usr/share/nginx/htmlEXPOSE 80CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]# 说明第一行是用来声明我们的镜像是基于什么构建的，这里我们指定为ubuntu14.04 第二行的作用在于说明维护者。第三行和第四行的RUN命令用来在容器内部的shell里执行命令。第五行将当前系统的www文件夹拷贝到容器的/usr/share/nginx/html目录下第六行声明当前需要对外开放80端口最后一行表示运行容器时开启nginx。</code></pre><blockquote><p>为什么daemon off;<br>docker 容器默认会把容器内部第一个进程，也就是pid=1的程序作为docker容器是否正在运行的依据，如果docker 容器pid挂了，那么docker容器便会直接退出</p></blockquote><blockquote><p>docker run的时候把command作为容器内部命令，如果你使用nginx，那么nginx程序将后台运行，这个时候nginx并不是pid为1的程序，而是执行的bash，这个bash执行了nginx指令后就挂了，所以容器也就退出了，和你这个一样的道理，pm2 start 过后，bash 的pid为1，那么此时bash执行完以后会退出，所以容器也就退出了。</p></blockquote><ol start="3"><li>构建</li></ol><pre><code class="shell"># 指令docker build [选项] &lt;上下文路径/URL/-&gt;# docker build# docker image build示例 Dockerfile在当前目录docker build -t zhuzhenyuan/ubuntu:test.0.0.2 .docker build -t=&quot;zhuzhenyuan/ubuntu:test.0.0.2&quot; .docker image build -t ubuntu .docker image build -t ubuntu:test.0.0.2 .-f: 可以指定docker file镜像构建上下文（Context）docker build 命令最后有一个 .。. 表示当前目录，而 Dockerfile 就在当前目录Docker 在运行时分为 Docker 引擎（也就是服务端守护进程）和客户端工具，构建是在服务端守护进程执行当构建的时候，用户会指定构建镜像上下文的路径，docker build 命令得知这个路径后，会将路径下的所有内容打包，然后上传给 Docker 引擎。这样 Docker 引擎收到这个上下文包后，展开就会获得构建镜像所需的一切文件。如果在 Dockerfile 中这么写：COPY ./package.json /app/这并不是要复制执行 docker build 命令所在的目录下的 package.json，也不是复制 Dockerfile 所在目录下的 package.json，而是复制 上下文（context） 目录下的 package.json.dockerignore如果目录下有些东西确实不希望构建时传给 Docker 引擎，那么可以用 .gitignore 一样的语法写一个，该文件是用于剔除不需要作为上下文传递给 Docker 引擎的。这只是默认行为，实际上 Dockerfile 的文件名并不要求必须为 Dockerfile，而且并不要求必须位于上下文目录中，比如可以用 -f ../Dockerfile.php 参数指定某个文件作为 Dockerfile。一般习惯性的会使用默认的文件名 Dockerfile，以及会将其置于镜像构建上下文目录中</code></pre><blockquote><p>上面代码中,-t参数用来指定image文件的名字,后面还可以用冒号指定标签,如果不指定,默认标签就是latest,最后那个.表示Dockerfile文件所在的路径.这个例子Dockerfile文件在当前路径,所以就是一个.</p></blockquote><p>生成容器</p><pre><code class="shell"># 上面的例子运行docker run -p 8000:80 -d zhuzhenyuan/ubuntu:test.0.0.2# 或者docker container run -p 8000:80 -it zhuzhenyuan/ubuntu:test.0.0.2 /bin/bash</code></pre><blockquote><p>上传image</p></blockquote><p>发布image文件<br>首先，去 hub.docker.com 或 cloud.docker.com注册一个账户。然后，用下面的命令登录</p><pre><code class="shell">docker logindocker logout # 退出登录</code></pre><p>接着，为本地的 image 标注用户名和版本。</p><pre><code class="shell"># 设置镜像标签docker tag [imageName] [username]/[repository]:[tag]docker image tag [imageName] [username]/[repository]:[tag]# 实例docker tag 860c279d2fec runoob/centos:devdocker image tag koa-demos:0.0.1 ruanyf/koa-demos:0.0.1</code></pre><p>也可以不标注用户名，重新构建一下 image 文件。重新构建</p><pre><code class="shell">$ docker image build -t [username]/[repository]:[tag] .</code></pre><p>最后，发布 image 文件。</p><pre><code class="shell"># docker pushdocker image push [username]/[repository]:[tag]</code></pre><h4 id="其它-docker-build-的用法"><a href="#其它-docker-build-的用法" class="headerlink" title="其它 docker build 的用法"></a>其它 docker build 的用法</h4><blockquote><p>直接用 Git repo 进行构建</p></blockquote><p>docker build 还支持从 URL 构建，比如可以直接从 Git repo 中构建：</p><pre><code class="shell">docker build https://github.com/twang2218/gitlab-ce-zh.git#:11.1# 这行命令指定了构建所需的 Git repo，并且指定默认的 master 分支，构建目录为 /11.1/，# 然后 Docker 就会自己去 git clone 这个项目、切换到指定分支、并进入到指定目录后开始构建。</code></pre><blockquote><p>用给定的 tar 压缩包构建</p></blockquote><pre><code class="shell">docker build http://server/context.tar.gz# 如果所给出的 URL 不是个 Git repo，而是个 tar 压缩包，# 那么 Docker 引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。</code></pre><blockquote><p>从标准输入中读取 Dockerfile 进行构建</p></blockquote><pre><code class="shell">docker build - &lt; Dockerfile或cat Dockerfile | docker build -# 如果标准输入传入的是文本文件，则将其视为 Dockerfile，# 并开始构建。这种形式由于直接从标准输入中读取 Dockerfile 的内容，# 它没有上下文，因此不可以像其他方法那样可以将本地文件 COPY 进镜像之类的事情。</code></pre><blockquote><p>从标准输入中读取上下文压缩包进行构建</p></blockquote><pre><code class="shell">docker build - &lt; context.tar.gz# 如果发现标准输入的文件格式是 gzip、bzip2 以及 xz 的话，# 将会使其为上下文压缩包，直接将其展开，将里面视为上下文，并开始构建。</code></pre><h4 id="其它制作镜像的方式"><a href="#其它制作镜像的方式" class="headerlink" title="其它制作镜像的方式"></a>其它制作镜像的方式</h4><blockquote><p>从 rootfs 压缩包导入</p></blockquote><pre><code class="shell">格式：docker import [选项] &lt;文件&gt;|&lt;URL&gt;|- [&lt;仓库名&gt;[:&lt;标签&gt;]]# 压缩包可以是本地文件、远程 Web 文件，甚至是从标准输入中得到。# 压缩包将会在镜像 / 目录展开，并直接作为镜像第一层提交。比如我们想要创建一个 OpenVZ 的 Ubuntu 16.04 模板的镜像：docker import \    http://download.openvz.org/template/precreated/ubuntu-16.04-x86_64.tar.gz \    openvz/ubuntu:16.04</code></pre><blockquote><p>docker save 和 docker load</p></blockquote><pre><code class="shell">Docker 还提供了 docker save 和 docker load 命令，用以将镜像保存为一个文件，然后传输到另一个位置上，再加载进来。这是在没有 Docker Registry 时的做法，现在已经不推荐，镜像迁移应该直接使用 Docker Registry，无论是直接使用 Docker Hub 还是使用内网私有 Registry 都可以。保存镜像使用 docker save 命令可以将镜像保存为归档文件。保存镜像的命令为：$ docker save alpine -o filename$ file filenamefilename: POSIX tar archive这里的 filename 可以为任意名称甚至任意后缀名，但文件的本质都是归档文件注意：如果同名则会覆盖（没有警告）若使用 gzip 压缩：docker save alpine | gzip &gt; alpine-latest.tar.gz然后我们将 alpine-latest.tar.gz 文件复制到了到了另一个机器上，可以用下面这个命令加载镜像：docker load -i alpine-latest.tar.gz</code></pre><h4 id="导出和导入容器"><a href="#导出和导入容器" class="headerlink" title="导出和导入容器"></a>导出和导入容器</h4><pre><code class="shell">导出容器docker export 7691a814370e &gt; ubuntu.tar这样将导出容器快照到本地文件。导入容器快照可以使用 docker import 从容器快照文件中再导入为镜像，例如cat ubuntu.tar | docker import - test/ubuntu:v1.0此外，也可以通过指定 URL 或者某个目录来导入，例如docker import http://example.com/exampleimage.tgz example/imagerepo注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> server </category>
+          
+          <category> docker </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>linux 设置开机自启.md</title>
       <link href="/2019/12/12/linux/linux%20%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/"/>
       <url>/2019/12/12/linux/linux%20%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/</url>
@@ -2813,27 +2929,6 @@
       <url>/2019/12/03/server/docker/docker%20%E6%9C%80%E5%B0%8F%E5%8C%96%E6%9E%84%E5%BB%BA/</url>
       
         <content type="html"><![CDATA[<ul><li>FROM scratch: (空镜像)</li><li>FROM busybox: (空镜像 + busybox)</li><li>FROM alpine:  (空镜像 + busybox + apk)apk,包管理工具</li></ul><p>例如： python:3.7-alpine</p><p>ldd：打印共享的依赖库</p><p>用 ldd 查出所需的 .so 文件<br>将所有依赖压缩成 rootfs.tar 或 rootfs.tar.gz，之后打进 scratch 基础镜像</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> server </category>
-          
-          <category> docker </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>docker 构建镜像.md</title>
-      <link href="/2019/12/03/server/docker/docker%20%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/"/>
-      <url>/2019/12/03/server/docker/docker%20%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/</url>
-      
-        <content type="html"><![CDATA[<p>参考：<br><a href="https://account.daocloud.io/signin" target="_blank" rel="noopener">daoCloud平台</a>使用</p><hr><h4 id="从容器构建image"><a href="#从容器构建image" class="headerlink" title="从容器构建image"></a>从容器构建image</h4><ol><li>先对已经运行的(存在)容器进行一些修改，例如 apt update，更新一下软件包</li></ol><pre><code>docker run -i -t ubuntu:14.04 /bin/bashapt update &amp;&amp; apt install -y vim# 重新进入容器# docker container exec -it 7054aa92bf8e /bin/bash# docker attact 7054aa92bf8e</code></pre><ol start="2"><li>commit命令用来将容器转化为镜像，运行下面的命令，我们可以讲刚刚的容器转换为镜像:</li></ol><pre><code># docker commit 的语法格式为：# docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]]sudo docker commit -m &quot;Added nginx from ubuntu14.04&quot; -a &quot;saymagic&quot; 79c761f627f3 saymagic/ubuntu-nginx:v1说明-m: 参数用来来指定提交的说明信息-a: 可以指定用户信息的79c761f627f3: 代表的是容器的idsaymagic/ubuntu-nginx:v1: 指定目标镜像的用户名、仓库名和tag信息。创建成功后会返回这个镜像的ID信息。# 还可以用 docker history 具体查看镜像内的历史记录docker history nginx:v2# 示例，手动构建完镜像之后要进行清理，以此来减小镜像体积FROM debian:stretchRUN buildDeps=&#39;gcc libc6-dev make wget&#39; \    &amp;&amp; apt-get update \    &amp;&amp; apt-get install -y $buildDeps \    &amp;&amp; wget -O redis.tar.gz &quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot; \    &amp;&amp; mkdir -p /usr/src/redis \    &amp;&amp; tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \    &amp;&amp; make -C /usr/src/redis \    &amp;&amp; make -C /usr/src/redis install \    &amp;&amp; rm -rf /var/lib/apt/lists/* \    &amp;&amp; rm redis.tar.gz \    &amp;&amp; rm -r /usr/src/redis \    &amp;&amp; apt-get purge -y --auto-remove $buildDeps</code></pre><h4 id="从dockerfile构建image"><a href="#从dockerfile构建image" class="headerlink" title="从dockerfile构建image"></a>从dockerfile构建image</h4><ol><li>进入一个目录，新建目录 www,在其中添加index.html文件</li></ol><ol start="2"><li>编写Dockerfile文件<pre><code># filename: DockerfileFROM ubuntu:14.04MAINTAINER zhuzhenyuan&lt;zhenyuanzhu@outlook.com&gt;RUN apt-get update &amp;&amp; apt-get install -y nginxCOPY ./www /usr/share/nginx/htmlEXPOSE 80CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</code></pre></li></ol><h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>第一行是用来声明我们的镜像是基于什么构建的，这里我们指定为ubuntu14.04<br>第二行的作用在于说明维护者。<br>第三行和第四行的RUN命令用来在容器内部的shell里执行命令。<br>第五行将当前系统的www文件夹拷贝到容器的/usr/share/nginx/html目录下<br>第六行声明当前需要对外开放80端口<br>最后一行表示运行容器时开启nginx。</p><pre><code>&gt; 为什么daemon off;  docker 容器默认会把容器内部第一个进程，也就是pid=1的程序作为docker容器是否正在运行的依据，如果docker 容器pid挂了，那么docker容器便会直接退出&gt; docker run的时候把command作为容器内部命令，如果你使用nginx，那么nginx程序将后台运行，这个时候nginx并不是pid为1的程序，而是执行的bash，这个bash执行了nginx指令后就挂了，所以容器也就退出了，和你这个一样的道理，pm2 start 过后，bash 的pid为1，那么此时bash执行完以后会退出，所以容器也就退出了。3. 构建</code></pre><h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><p>docker build [选项] &lt;上下文路径/URL/-&gt;</p><h1 id="docker-build"><a href="#docker-build" class="headerlink" title="docker build"></a>docker build</h1><h1 id="docker-image-build"><a href="#docker-image-build" class="headerlink" title="docker image build"></a>docker image build</h1><p>示例 Dockerfile在当前目录<br>docker build -t zhuzhenyuan/ubuntu:test.0.0.2 .<br>docker build -t=”zhuzhenyuan/ubuntu:test.0.0.2” .<br>docker image build -t ubuntu .<br>docker image build -t ubuntu:test.0.0.2 .</p><p>-f: 可以指定docker file</p><p>镜像构建上下文（Context）<br>docker build 命令最后有一个 .。. 表示当前目录，而 Dockerfile 就在当前目录<br>Docker 在运行时分为 Docker 引擎（也就是服务端守护进程）和客户端工具，构建是在服务端守护进程执行</p><p>当构建的时候，用户会指定构建镜像上下文的路径，docker build 命令得知这个路径后，会将路径下的所有内容打包，然后上传给 Docker 引擎。<br>这样 Docker 引擎收到这个上下文包后，展开就会获得构建镜像所需的一切文件。</p><p>如果在 Dockerfile 中这么写：</p><p>COPY ./package.json /app/<br>这并不是要复制执行 docker build 命令所在的目录下的 package.json，也不是复制 Dockerfile 所在目录下的 package.json，而是复制 上下文（context） 目录下的 package.json</p><p>.dockerignore<br>如果目录下有些东西确实不希望构建时传给 Docker 引擎，那么可以用 .gitignore 一样的语法写一个，该文件是用于剔除不需要作为上下文传递给 Docker 引擎的。</p><p>这只是默认行为，实际上 Dockerfile 的文件名并不要求必须为 Dockerfile，而且并不要求必须位于上下文目录中，比如可以用 -f ../Dockerfile.php 参数指定某个文件作为 Dockerfile。</p><p>一般习惯性的会使用默认的文件名 Dockerfile，以及会将其置于镜像构建上下文目录中</p><pre><code>&gt; 上面代码中,-t参数用来指定image文件的名字,后面还可以用冒号指定标签,如果不指定,默认标签就是latest,最后那个.表示Dockerfile文件所在的路径.这个例子Dockerfile文件在当前路径,所以就是一个.生成容器</code></pre><h1 id="上面的例子运行"><a href="#上面的例子运行" class="headerlink" title="上面的例子运行"></a>上面的例子运行</h1><p>docker run -p 8000:80 -d zhuzhenyuan/ubuntu:test.0.0.2</p><h1 id="或者"><a href="#或者" class="headerlink" title="或者"></a>或者</h1><p>docker container run -p 8000:80 -it zhuzhenyuan/ubuntu:test.0.0.2 /bin/bash</p><pre><code>&gt; 上传image发布image文件  首先，去 hub.docker.com 或 cloud.docker.com注册一个账户。然后，用下面的命令登录</code></pre><p>docker login<br>docker logout # 退出登录</p><pre><code>接着，为本地的 image 标注用户名和版本。</code></pre><h1 id="设置镜像标签"><a href="#设置镜像标签" class="headerlink" title="设置镜像标签"></a>设置镜像标签</h1><p>docker tag [imageName] [username]/[repository]:[tag]<br>docker image tag [imageName] [username]/[repository]:[tag]</p><h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>docker tag 860c279d2fec runoob/centos:dev<br>docker image tag koa-demos:0.0.1 ruanyf/koa-demos:0.0.1</p><pre><code>也可以不标注用户名，重新构建一下 image 文件。重新构建</code></pre><p>$ docker image build -t [username]/[repository]:[tag] .</p><pre><code>最后，发布 image 文件。</code></pre><h1 id="docker-push"><a href="#docker-push" class="headerlink" title="docker push"></a>docker push</h1><p>docker image push [username]/[repository]:[tag]</p><pre><code>#### 其它 docker build 的用法&gt; 直接用 Git repo 进行构建docker build 还支持从 URL 构建，比如可以直接从 Git repo 中构建：</code></pre><p>docker build <a href="https://github.com/twang2218/gitlab-ce-zh.git#:11.1" target="_blank" rel="noopener">https://github.com/twang2218/gitlab-ce-zh.git#:11.1</a></p><h1 id="这行命令指定了构建所需的-Git-repo，并且指定默认的-master-分支，构建目录为-11-1-，"><a href="#这行命令指定了构建所需的-Git-repo，并且指定默认的-master-分支，构建目录为-11-1-，" class="headerlink" title="这行命令指定了构建所需的 Git repo，并且指定默认的 master 分支，构建目录为 /11.1/，"></a>这行命令指定了构建所需的 Git repo，并且指定默认的 master 分支，构建目录为 /11.1/，</h1><h1 id="然后-Docker-就会自己去-git-clone-这个项目、切换到指定分支、并进入到指定目录后开始构建。"><a href="#然后-Docker-就会自己去-git-clone-这个项目、切换到指定分支、并进入到指定目录后开始构建。" class="headerlink" title="然后 Docker 就会自己去 git clone 这个项目、切换到指定分支、并进入到指定目录后开始构建。"></a>然后 Docker 就会自己去 git clone 这个项目、切换到指定分支、并进入到指定目录后开始构建。</h1><pre><code>&gt; 用给定的 tar 压缩包构建</code></pre><p>docker build <a href="http://server/context.tar.gz" target="_blank" rel="noopener">http://server/context.tar.gz</a></p><h1 id="如果所给出的-URL-不是个-Git-repo，而是个-tar-压缩包，"><a href="#如果所给出的-URL-不是个-Git-repo，而是个-tar-压缩包，" class="headerlink" title="如果所给出的 URL 不是个 Git repo，而是个 tar 压缩包，"></a>如果所给出的 URL 不是个 Git repo，而是个 tar 压缩包，</h1><h1 id="那么-Docker-引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。"><a href="#那么-Docker-引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。" class="headerlink" title="那么 Docker 引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。"></a>那么 Docker 引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。</h1><pre><code>&gt; 从标准输入中读取 Dockerfile 进行构建</code></pre><p>docker build - &lt; Dockerfile<br>或<br>cat Dockerfile | docker build -</p><h1 id="如果标准输入传入的是文本文件，则将其视为-Dockerfile，"><a href="#如果标准输入传入的是文本文件，则将其视为-Dockerfile，" class="headerlink" title="如果标准输入传入的是文本文件，则将其视为 Dockerfile，"></a>如果标准输入传入的是文本文件，则将其视为 Dockerfile，</h1><h1 id="并开始构建。这种形式由于直接从标准输入中读取-Dockerfile-的内容，"><a href="#并开始构建。这种形式由于直接从标准输入中读取-Dockerfile-的内容，" class="headerlink" title="并开始构建。这种形式由于直接从标准输入中读取 Dockerfile 的内容，"></a>并开始构建。这种形式由于直接从标准输入中读取 Dockerfile 的内容，</h1><h1 id="它没有上下文，因此不可以像其他方法那样可以将本地文件-COPY-进镜像之类的事情。"><a href="#它没有上下文，因此不可以像其他方法那样可以将本地文件-COPY-进镜像之类的事情。" class="headerlink" title="它没有上下文，因此不可以像其他方法那样可以将本地文件 COPY 进镜像之类的事情。"></a>它没有上下文，因此不可以像其他方法那样可以将本地文件 COPY 进镜像之类的事情。</h1><pre><code>&gt; 从标准输入中读取上下文压缩包进行构建</code></pre><p>docker build - &lt; context.tar.gz</p><h1 id="如果发现标准输入的文件格式是-gzip、bzip2-以及-xz-的话，"><a href="#如果发现标准输入的文件格式是-gzip、bzip2-以及-xz-的话，" class="headerlink" title="如果发现标准输入的文件格式是 gzip、bzip2 以及 xz 的话，"></a>如果发现标准输入的文件格式是 gzip、bzip2 以及 xz 的话，</h1><h1 id="将会使其为上下文压缩包，直接将其展开，将里面视为上下文，并开始构建。"><a href="#将会使其为上下文压缩包，直接将其展开，将里面视为上下文，并开始构建。" class="headerlink" title="将会使其为上下文压缩包，直接将其展开，将里面视为上下文，并开始构建。"></a>将会使其为上下文压缩包，直接将其展开，将里面视为上下文，并开始构建。</h1><pre><code>#### 其它制作镜像的方式&gt; 从 rootfs 压缩包导入</code></pre><p>格式：docker import [选项] &lt;文件&gt;|<URL>|- [&lt;仓库名&gt;[:&lt;标签&gt;]]</p><h1 id="压缩包可以是本地文件、远程-Web-文件，甚至是从标准输入中得到。"><a href="#压缩包可以是本地文件、远程-Web-文件，甚至是从标准输入中得到。" class="headerlink" title="压缩包可以是本地文件、远程 Web 文件，甚至是从标准输入中得到。"></a>压缩包可以是本地文件、远程 Web 文件，甚至是从标准输入中得到。</h1><h1 id="压缩包将会在镜像-目录展开，并直接作为镜像第一层提交。"><a href="#压缩包将会在镜像-目录展开，并直接作为镜像第一层提交。" class="headerlink" title="压缩包将会在镜像 / 目录展开，并直接作为镜像第一层提交。"></a>压缩包将会在镜像 / 目录展开，并直接作为镜像第一层提交。</h1><p>比如我们想要创建一个 OpenVZ 的 Ubuntu 16.04 模板的镜像：</p><p>docker import <br>    <a href="http://download.openvz.org/template/precreated/ubuntu-16.04-x86_64.tar.gz" target="_blank" rel="noopener">http://download.openvz.org/template/precreated/ubuntu-16.04-x86_64.tar.gz</a> <br>    openvz/ubuntu:16.04</p><pre><code>&gt; docker save 和 docker load</code></pre><p>Docker 还提供了 docker save 和 docker load 命令，用以将镜像保存为一个文件，然后传输到另一个位置上，再加载进来。<br>这是在没有 Docker Registry 时的做法，<br>现在已经不推荐，镜像迁移应该直接使用 Docker Registry，<br>无论是直接使用 Docker Hub 还是使用内网私有 Registry 都可以。</p><p>保存镜像<br>使用 docker save 命令可以将镜像保存为归档文件。<br>保存镜像的命令为：<br>$ docker save alpine -o filename<br>$ file filename<br>filename: POSIX tar archive</p><p>这里的 filename 可以为任意名称甚至任意后缀名，但文件的本质都是归档文件<br>注意：如果同名则会覆盖（没有警告）</p><p>若使用 gzip 压缩：<br>docker save alpine | gzip &gt; alpine-latest.tar.gz<br>然后我们将 alpine-latest.tar.gz 文件复制到了到了另一个机器上，可以用下面这个命令加载镜像：</p><p>docker load -i alpine-latest.tar.gz</p><pre><code>#### 导出和导入容器</code></pre><p>导出容器<br>docker export 7691a814370e &gt; ubuntu.tar<br>这样将导出容器快照到本地文件。</p><p>导入容器快照<br>可以使用 docker import 从容器快照文件中再导入为镜像，例如</p><p>cat ubuntu.tar | docker import - test/ubuntu:v1.0</p><p>此外，也可以通过指定 URL 或者某个目录来导入，例如</p><p>docker import <a href="http://example.com/exampleimage.tgz" target="_blank" rel="noopener">http://example.com/exampleimage.tgz</a> example/imagerepo</p><p>注：用户既可以使用 docker load 来导入镜像存储文件到本地镜像库，也可以使用 docker import 来导入一个容器快照到本地镜像库。<br>这两者的区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态），<br>而镜像存储文件将保存完整记录，体积也要大。<br>此外，从容器快照文件导入时可以重新指定标签等元数据信息。</p><pre><code></code></pre>]]></content>
       
       
       <categories>
