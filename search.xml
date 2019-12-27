@@ -4,6 +4,101 @@
   
     
     <entry>
+      <title>go mail发邮件.md</title>
+      <link href="/2019/12/27/go/go%20mail%E5%8F%91%E9%82%AE%E4%BB%B6/"/>
+      <url>/2019/12/27/go/go%20mail%E5%8F%91%E9%82%AE%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="go">package serviceimport (    &quot;crypto/tls&quot;    &quot;fmt&quot;    &quot;net&quot;    &quot;net/smtp&quot;    &quot;strings&quot;)func (this *Service) SendMail(body string) (err error) {    toEmailList := []string{&quot;1034455262@qq.com&quot;}    host := &quot;smtp.mxhichina.com&quot;    port := 465    email := &quot;发送的邮箱&quot;                     // 发送邮箱    pwd := &quot;密码&quot;                             // 邮箱密码    toEmail := strings.Join(toEmailList, &quot;;&quot;) // 目标地址    header := make(map[string]string)    header[&quot;From&quot;] = &quot;自动化&quot; + &quot;&lt;&quot; + email + &quot;&gt;&quot;    header[&quot;To&quot;] = strings.Join(toEmailList, &quot;&quot;)    header[&quot;Subject&quot;] = &quot;自动化申请通知&quot;    header[&quot;Content-Type&quot;] = &quot;text/html;charset=UTF-8&quot;    message := &quot;&quot;    for k, v := range header {        message += fmt.Sprintf(&quot;%s:%s\r\n&quot;, k, v)    }    message += &quot;\r\n&quot; + body    auth := smtp.PlainAuth(        &quot;&quot;,        email,        pwd,        host,    )    err = SendMailUsingTLS(        fmt.Sprintf(&quot;%s:%d&quot;, host, port),        auth,        email,        toEmail,        []byte(message),    )    if err != nil {        this.Log.Info(&quot;发送邮件失败!&quot;)        this.Log.Info(err)    } else {        fmt.Println(&quot;发送邮件成功!&quot;)    }    return}func SendMailUsingTLS(addr string, auth smtp.Auth, from string, to string, msg []byte) (err error) {    c, err := Dial(addr)    if err != nil {        return err    }    defer c.Close()    if auth != nil {        if ok, _ := c.Extension(&quot;AUTH&quot;); ok {            if err = c.Auth(auth); err != nil {                return err            }        }    }    if err = c.Mail(from); err != nil {        return err    }    tos := strings.Split(to, &quot;;&quot;)    for _, addr := range tos {        if err = c.Rcpt(addr); err != nil {            fmt.Print(err)            return err        }    }    w, err := c.Data()    if err != nil {        return err    }    _, err = w.Write(msg)    if err != nil {        return err    }    err = w.Close()    if err != nil {        return err    }    return c.Quit()}func Dial(addr string) (*smtp.Client, error) {    //conn, err := tls.Dial(&quot;tcp&quot;, addr, nil)    conn, err := tls.Dial(&quot;tcp&quot;, addr, &amp;tls.Config{InsecureSkipVerify: true})    if err != nil {        return nil, err    }    //分解主机端口字符串    host, _, _ := net.SplitHostPort(addr)    return smtp.NewClient(conn, host)}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> go </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux git保存用户名密码.md</title>
+      <link href="/2019/12/27/linux/linux%20git%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81/"/>
+      <url>/2019/12/27/linux/linux%20git%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81/</url>
+      
+        <content type="html"><![CDATA[<p>操作之前输入过一次密码</p><pre><code>1、设置记住密码（默认15分钟）：git config --global credential.helper cache2、如果想自己设置时间，可以这样做：git config credential.helper &#39;cache --timeout=3600&#39;这样就设置一个小时之后失效3、长期存储密码：git config --global credential.helper store4、增加远程地址的时候带上密码也是可以的。(推荐)，这个可以直接设置http://yourname:password@git.oschina.net/name/project.git</code></pre><p>使用客户端也可以存储密码的。<br>如果你正在使用ssh而且想体验https带来的高速，那么你可以这样做</p><pre><code>1、切换到项目目录下      cd projectfile/2、移除远程ssh方式的仓库地址      git remote rm origin3、增加https远程仓库地址    git remote add origin http://yourname:password@git.oschina.net/name/project.git</code></pre><p>HTTPS协议如何保存凭证信息<br>HTTPS认证方式虽然需要输入账户密码，但现在也不需要每次都输入。这个凭据保存需要依赖一个凭据管理器，每个操作系统平台都有自己的凭据管理器。可以参考github官方提供的教程来配置</p><p>我这里介绍一个git的凭据管理方式:</p><blockquote><p>建立凭据文件</p></blockquote><pre><code>$ touch ~/.git-credentials$ vim ~/.git-credentials在文件中加入带凭据的url信息:https://{username}:{passwd}@github.com然后告诉git使用这个凭据管理器:$ git config --global credential.helper store上面命令会在git配置文件 ～/.gitconfig 中设置上一个凭据地址:[credential]    helper = store</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>adb.md</title>
+      <link href="/2019/12/27/others/adb/"/>
+      <url>/2019/12/27/others/adb/</url>
+      
+        <content type="html"><![CDATA[<p>列出设备</p><pre><code>adb devices</code></pre><p>启动关闭adb服务</p><pre><code>adb start-serveradb kill-server</code></pre><p>安装apk</p><pre><code>adb -s 选择设备名 adb -s emulator-5554 install taobao.apkadb install -r apk.apk</code></pre><p>无线连接</p><pre><code class="bash"># 先用usb线连接android手机，然后输入如下指令：adb tcpip 端口号,端口号默认为5555adb tcpip 5555# 通过adb连接ip地址adb connect ip地址</code></pre><p>获取文件</p><pre><code>adb -s device pull src_path to_path</code></pre><p>开启关闭adb服务</p><pre><code>adb kill-server在关闭adb服务后，要使用如下的命令启动adb服务。adb start-server</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> others </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>发送微信通知.md</title>
+      <link href="/2019/12/27/others/%E5%8F%91%E9%80%81%E5%BE%AE%E4%BF%A1%E9%80%9A%E7%9F%A5/"/>
+      <url>/2019/12/27/others/%E5%8F%91%E9%80%81%E5%BE%AE%E4%BF%A1%E9%80%9A%E7%9F%A5/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">import requestsdef send_by_server_chan(desp, text=&quot;开发者服务&quot;, sckey=&quot;sckey&quot;):    &quot;&quot;&quot;    http://sc.ftqq.com/3.version    sckey是要登录获取的    1. 每人每天发送上限500条    2. 相同内容5分钟内不能重复发送    3. 不同内容10秒内不能连续发送    4. 不同内容一分钟只能发送30条。    5. 24小时请求接口超过1000次的账户将被封禁。    &quot;&quot;&quot;    data = {        &quot;text&quot;: text,  #256B        &quot;desp&quot;: desp  # 最大64KB，支持markdown    }    r = requests.post(        &quot;https://sc.ftqq.com/%s.send&quot; % sckey,        data=data    )    print(r.json())    return r.json()if __name__ == &quot;__main__&quot;:    msg = &quot;&quot;&quot;        khjgjkhgkjh    &quot;&quot;&quot;    r = send_by_server_chan(msg)    print(r)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> others </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>py daemon守护进程.md</title>
+      <link href="/2019/12/27/python/py%20daemon%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"/>
+      <url>/2019/12/27/python/py%20daemon%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<pre><code class="python">import atexitimport osimport sysimport timefrom _signal import SIGTERMbase_dir = os.path.dirname(os.path.realpath(sys.argv[0]))class Daemon(object):    def __init__(self):        self.application_name = &quot;TestDaemon&quot;        self.work_dir = &quot;./tmp&quot;        # pid file 保存pid        self.pid_file = os.path.join(base_dir, &quot;%s.pid&quot; % self.application_name)        # 用户掩码，默认为0        # https://www.runoob.com/linux/linux-comm-umask.html        self.umask = 0    def start(self, *args, **kwargs):        try:            pid = self._get_pid()        except IOError:            pid = None        # 如果PID存在，则说明进程没有关闭。        if pid:            message = self.application_name + &#39;: pid_file %s already exist. Process already running!\n&#39;            sys.stderr.write(message % self.pid_file)            # 程序退出            sys.exit(1)        # 构造进程环境        self._daemonize()        message = self.application_name + &#39;: Process is start.\n&#39;        sys.stderr.write(message)        # 执行具体任务        self.run(*args, **kwargs)    def stop(self):        # 从pid文件中获取pid        try:            pid = self._get_pid()        except IOError:            pid = None        # 如果程序没有启动就直接返回不在执行        if not pid:            message = self.application_name + &#39;: pid_file %s does not exist. Process not running!\n&#39;            sys.stderr.write(message % self.pid_file)            return        # 杀进程        try:            while 1:                # 发送信号，杀死进程                os.kill(pid, SIGTERM)                time.sleep(0.1)                message = self.application_name + &#39;: Process is stopped.\n&#39;                sys.stderr.write(message)        except OSError as err:            err = str(err)            if err.find(&#39;No such process&#39;) &gt; 0:                if os.path.exists(self.pid_file):                    os.remove(self.pid_file)            else:                print(str(err))                sys.exit(1)    def restart(self, *args, **kwargs):        self.stop()        self.start(*args, **kwargs)    def status(self):        try:            pid = self._get_pid()        except IOError:            pid = None        if not pid:            message = self.application_name + &quot;: No such a process running.\n&quot;            sys.stderr.write(message)        else:            message = self.application_name + &quot;: The process is running, PID is %s\n&quot;            sys.stderr.write(message % str(pid))    # 这个方法的主要目的就是脱离主体，为进程创造环境    def _daemonize(self):        # 第一步        try:            # 第一次fork，生成子进程，脱离父进程，它会返回两次，PID如果等于0说明是在子进程里面，如果大于0说明当前是在父进程里            pid = os.fork()            # 如果PID大于0，说明当前在父进程里，然后sys.exit(0)，则是退出父进程，此时子进程还在运行。            if pid &gt; 0:                # 退出父进程，此时linux系统的init将会接管子进程                sys.exit(0)        except OSError as e:            sys.stderr.write(&#39;fork #1 failed: %d (%s)\n&#39; % (e.errno, e.strerror))            sys.exit(1)        # 初始化工作环境        self.init()        # 第二、三、四步        self.set_env()        # 第五步        try:            # 第二次fork，禁止进程打开终端，相当于是子进程有派生一个子进程            pid = os.fork()            if pid &gt; 0:                # 子进程退出，孙子进程运行，此时孙子进程由init进程接管，在CentOS 7中是Systemed。                sys.exit(0)        except OSError as e:            sys.stderr.write(&#39;fork #2 failed: %d (%s)\n&#39; % (e.errno, e.strerror))            sys.exit(1)        # 把之前的刷到硬盘上        sys.stdout.flush()        sys.stderr.flush()        # 注册程序结束时的调用        self.end_callback()        # 写入pid        with open(self.pid_file, &#39;w&#39;) as f:            f.write(&#39;%s\n&#39; % str(os.getpid()))    def init(self):        # 重定向标准文件描述符        # sys.stdin = open(os.devnull, &#39;r&#39;)        # sys.stdout = open(os.devnull, &#39;a+&#39;)        # sys.stderr = open(os.devnull, &#39;a+&#39;)        # 初始化 work_dir 目录        if not os.path.exists(self.work_dir):            os.makedirs(self.work_dir)    def set_env(self):        # 设置子进程环境        # 第二、三、四步        os.chdir(self.work_dir)  # 修改进程工作目录        os.setsid()  # 设置新的会话，子进程会成为新会话的首进程，同时也产生一个新的进程组，该进程组ID与会话ID相同        os.umask(self.umask)  # 重新设置文件创建权限，也就是工作目录的umask    def end_callback(self):        # 注册退出函数，根据文件pid判断是否存在进程        atexit.register(self._del_pid)    def _get_pid(self):        try:            # 读取保存PID的文件            pf = open(self.pid_file, &#39;r&#39;)            # 转换成整数            pid = int(pf.read().strip())            # 关闭文件            pf.close()        except IOError:            pid = None        except SystemExit:            pid = None        return pid    def _del_pid(self):        &quot;&quot;&quot;        删除 pid 文件        &quot;&quot;&quot;        if os.path.exists(self.pid_file):            os.remove(self.pid_file)    def run(self, *args, **kwargs):        &quot;&quot;&quot;        这里是孙子进程需要做的事情，你可以继承这个类，然后重写这里的代码，上面其他的都可以不做修改        &quot;&quot;&quot;        while True:            &quot;&quot;&quot;            print 等于调用 sys.stdout.write(), sys.stdout.flush()是立即刷新输出。正常情况下如果是输出到控制台那么会立即输出            但是重定向到一个文件就不会了，因为等于写文件，所以需要进行刷新进行立即输出。 下面使用print 还是 write都是一样的。            &quot;&quot;&quot;            with open(&quot;a.txt&quot;, &#39;a&#39;) as f:                f.write(&#39;%s:hello world\n&#39; % (time.ctime(),))            time.sleep(2)if __name__ == &#39;__main__&#39;:    daemon = Daemon()    if len(sys.argv) == 2:        if &#39;start&#39; == sys.argv[1]:            daemon.start()        elif &#39;stop&#39; == sys.argv[1]:            daemon.stop()        elif &#39;restart&#39; == sys.argv[1]:            daemon.restart()        elif &#39;status&#39; == sys.argv[1]:            daemon.status()        else:            print(&#39;unknown command&#39;)            sys.exit(2)        sys.exit(0)    else:        print(&#39;usage: %s start|stop|restart|status&#39; % sys.argv[0])        sys.exit(2)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>go.md</title>
       <link href="/2019/12/17/undone/go/"/>
       <url>/2019/12/17/undone/go/</url>
