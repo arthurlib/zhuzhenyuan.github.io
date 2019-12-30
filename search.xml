@@ -4,6 +4,82 @@
   
     
     <entry>
+      <title>linux 各种设置项.md</title>
+      <link href="/2019/12/30/linux/linux%20%E5%90%84%E7%A7%8D%E8%AE%BE%E7%BD%AE%E9%A1%B9/"/>
+      <url>/2019/12/30/linux/linux%20%E5%90%84%E7%A7%8D%E8%AE%BE%E7%BD%AE%E9%A1%B9/</url>
+      
+        <content type="html"><![CDATA[<p>以下可以在终端设置,也可在.bashrc文件中写入使每次登陆自动配置.立即生效 <code>source .bashrc</code></p><p>http_proxy</p><blockquote><p>为http网站设置代理</p></blockquote><pre><code class="bash"># 为http站点设置http代理（默认）export http_proxy=10.0.0.52:8080# 为http站点设置sock4、sock5代理# 设置 socks 代理，自动识别socks版本export http_proxy=socks://10.0.0.52:1080# 设置 socks4 代理export http_proxy=socks4://10.0.0.52:1080# 设置 socks5 代理export http_proxy=socks5://10.0.0.52:1080# 代理使用用户名密码认证export http_proxy=user:pass@192.158.8.8:8080</code></pre><p>https_proxy</p><blockquote><p>为https网站设置代理</p></blockquote><pre><code class="bash">export https_proxy=10.0.0.52:8080export https_proxy=user:pass@192.158.8.8:8080export https_proxy=socks://10.0.0.52:1080export https_proxy=socks4://10.0.0.52:1080export https_proxy=socks5://10.0.0.52:1080</code></pre><p>ftp_proxy</p><blockquote><p>为ftp协议设置代理</p></blockquote><pre><code class="bash"></code></pre><p>no_proxy</p><blockquote><p>无需代理的主机或域名；可以使用通配符；多个时使用“,”号分隔；</p></blockquote><pre><code class="bash">export no_proxy=&quot;*.aiezu.com,10.*.*.*,192.168.*.*,*.local,localhost,127.0.0.1&quot;</code></pre><p>gsettings</p><blockquote><p>可用于桌面版linux修改代理配置</p></blockquote><p>参考： <a href="https://linux.cn/article-5673-1.html" target="_blank" rel="noopener">https://linux.cn/article-5673-1.html</a></p><blockquote><p>在桌面版 Ubuntu 中，它的桌面环境设置，包括系统代理设置，都存储在 DConf 数据库，<br>这是简单的键值对存储。如果你想通过系统设置菜单修改桌面属性，更改会持久保存在后端的<br>DConf 数据库。在 Ubuntu 中更改 DConf 数据库有基于图像用户界面和非图形用户界面的两种方式。<br>系统设置或者 dconf-editor 是访问 DConf 数据库的图形方法，<br>而 gsettings 或 dconf 就是能更改数据库的命令行工具。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux 换源.md</title>
+      <link href="/2019/12/30/linux/linux%20%E6%8D%A2%E6%BA%90/"/>
+      <url>/2019/12/30/linux/linux%20%E6%8D%A2%E6%BA%90/</url>
+      
+        <content type="html"><![CDATA[<ul><li>Ubuntu 18.04换国内源</li></ul><p>编辑/etc/apt/sources.list文件, 在文件最前面添加以下条目(操作前请做好相应备份)</p><p>然后执行命令：</p><pre><code class="bash">sudo apt-get updatesudo apt-get upgrade</code></pre><pre><code class="bash"># 中科大源deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiversedeb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse# 阿里源deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiversedeb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiversedeb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse# 163源deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiversedeb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiversedeb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiversedeb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiversedeb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiversedeb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiversedeb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiversedeb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiversedeb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiversedeb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse# 清华源deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiversedeb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux 阿里云.md</title>
+      <link href="/2019/12/30/linux/linux%20%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+      <url>/2019/12/30/linux/linux%20%E9%98%BF%E9%87%8C%E4%BA%91/</url>
+      
+        <content type="html"><![CDATA[<ul><li>阿里云ECS服务器 git clone 速度慢</li></ul><p>解决方案</p><pre><code class="bash">vim /etc/ssh/ssh_config# 编辑 /etc/ssh/ssh_config，找到 GSSAPIAuthentication no 这行，删掉前面的注释，然后保存退出</code></pre><ul><li>卸载阿里云盾（安骑士）</li></ul><p>卸载方法很简单，执行下面三段命令即可：</p><pre><code class="shell">wget http://update.aegis.aliyun.com/download/uninstall.shchmod +x uninstall.sh./uninstall.shwget http://update.aegis.aliyun.com/download/quartz_uninstall.shchmod +x quartz_uninstall.sh./quartz_uninstall.sh</code></pre><p>删除残留：</p><pre><code class="shell">pkill aliyun-servicerm -fr /etc/init.d/agentwatch /usr/sbin/aliyun-servicerm -rf /usr/local/aegis*</code></pre><p>2、屏蔽云盾IP</p><p>执行下面命令通过“iptables”防火墙来屏蔽云盾IP：</p><pre><code class="shell">iptables -I INPUT -s 140.205.201.0/28 -j DROPiptables -I INPUT -s 140.205.201.16/29 -j DROPiptables -I INPUT -s 140.205.201.32/28 -j DROPiptables -I INPUT -s 140.205.225.192/29 -j DROPiptables -I INPUT -s 140.205.225.200/30 -j DROPiptables -I INPUT -s 140.205.225.184/29 -j DROPiptables -I INPUT -s 140.205.225.183/32 -j DROPiptables -I INPUT -s 140.205.225.206/32 -j DROPiptables -I INPUT -s 140.205.225.205/32 -j DROPiptables -I INPUT -s 140.205.225.195/32 -j DROPiptables -I INPUT -s 140.205.225.204/32 -j DROP</code></pre><p><a href="https://blog.csdn.net/qjc_501165091/article/details/51225984" target="_blank" rel="noopener">https://blog.csdn.net/qjc_501165091/article/details/51225984</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>rust.md</title>
+      <link href="/2019/12/30/undone/rust/"/>
+      <url>/2019/12/30/undone/rust/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html" target="_blank" rel="noopener">rust教程</a></p><p>rustup: 一个管理 Rust 版本和相关工具的命令行工具</p><p>安装： curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p><p>更新 Rust</p><p>rustup update</p><p>卸载 Rust 和 rustup</p><p>rustup self uninstall</p><p>编译运行</p><p>rustc file.rs</p><p>fn main() {<br>    println!(“Hello, world!”);<br>}</p><p>当看到符号 ! 的时候，就意味着调用的是宏而不是普通函数。</p><p>rustfmt: 代码文件格式化工具</p><p>cargo: 是rust的构建系统和包管理器</p><p>cargo build: 编译，debug<br>cargo run: 编译运行<br>cargo check: 检查是否能成功编译<br>cargo build –release: 正式发布<br>cargo new movie-lib –lib: 创建lib项目，库工程crate<br>cargo new movie-lib-test –bin</p><p>语法</p><p>let x = 5; 定义不可变变量<br>let mut y = 0; 定义可变变量</p><p>换源：为rust crates.io换上国内中科大的源<br>中科大说明： <a href="https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates" target="_blank" rel="noopener">https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates</a></p><ol><li>进入当前用户的 .cargo 目录 cd ~/.cargo</li><li>新建名字叫 config 的文件</li><li>编辑 config 文件写入</li></ol><pre><code class="bash">[source.crates-io]registry = &quot;https://github.com/rust-lang/crates.io-index&quot;replace-with = &#39;ustc&#39;[source.ustc]registry = &quot;git://mirrors.ustc.edu.cn/crates.io-index&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> undone </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>go mail发邮件.md</title>
       <link href="/2019/12/27/go/go%20mail%E5%8F%91%E9%82%AE%E4%BB%B6/"/>
       <url>/2019/12/27/go/go%20mail%E5%8F%91%E9%82%AE%E4%BB%B6/</url>
@@ -161,25 +237,6 @@
       <url>/2019/12/17/undone/py/</url>
       
         <content type="html"><![CDATA[<p>一次批量替换</p><p>result.translate(str.maketrans(‘①②③④⑤⑥⑦⑧⑨’, ‘123456789’))</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>rust.md</title>
-      <link href="/2019/12/17/undone/rust/"/>
-      <url>/2019/12/17/undone/rust/</url>
-      
-        <content type="html"><![CDATA[<p><a href="https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html" target="_blank" rel="noopener">rust教程</a></p><p>rustup: 一个管理 Rust 版本和相关工具的命令行工具</p><p>安装： curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p><p>更新 Rust</p><p>rustup update</p><p>卸载 Rust 和 rustup</p><p>rustup self uninstall</p><p>编译运行</p><p>rustc file.rs</p><p>fn main() {<br>    println!(“Hello, world!”);<br>}</p><p>当看到符号 ! 的时候，就意味着调用的是宏而不是普通函数。</p><p>rustfmt: 代码文件格式化工具</p><p>cargo: 是rust的构建系统和包管理器</p><p>cargo build: 编译，debug<br>cargo run: 编译运行<br>cargo check: 检查是否能成功编译<br>cargo build –release: 正式发布<br>cargo new movie-lib –lib: 创建lib项目，库工程crate<br>cargo new movie-lib-test –bin</p><p>语法</p><p>let x = 5; 定义不可变变量<br>let mut y = 0; 定义可变变量</p>]]></content>
       
       
       <categories>
@@ -1091,25 +1148,6 @@
       <url>/2019/12/03/linux/linux%20ubuntu%E4%B8%AD%E5%AE%B6%E7%9B%AE%E5%BD%95%E4%B8%AD%E6%96%87%E6%94%B9%E8%8B%B1%E6%96%87/</url>
       
         <content type="html"><![CDATA[<ol><li>先将home目录下系统默认的文件夹名称改为英文，手动操作，也可以参考以下脚本<pre><code class="bash">name=`whoami`;#echo $name#可以将第二步骤的内容保存到文件中，命名user-dirs.dirs，打开下面一句的注释，执行该脚本。#我忘记这个命令能不能生效了，暂时没有时间重新测试#cp /home/$name/linux/config/user-dirs.dirs /home/$name/.config/user-dirs.dirs;echo user-dirs.dirs 复制完成;mv /home/$name/图片 /home/$name/Pictures;mv /home/$name/桌面 /home/$name/Desktop;mv /home/$name/下载 /home/$name/Downloads;mv /home/$name/模板 /home/$name/Templates;mv /home/$name/公共的 /home/$name/Public;mv /home/$name/文档 /home/$name/Documents;mv /home/$name/音乐 /home/$name/Music;mv /home/$name/视频 /home/$name/Videos;echo home文件夹重命名完成;</code></pre></li></ol><pre><code>2. 进入~/.config/user-dirs.dirs，将里面的内容改为如下,其中的英文要与你文件夹的名称对应</code></pre><h1 id="This-file-is-written-by-xdg-user-dirs-update"><a href="#This-file-is-written-by-xdg-user-dirs-update" class="headerlink" title="This file is written by xdg-user-dirs-update"></a>This file is written by xdg-user-dirs-update</h1><h1 id="If-you-want-to-change-or-add-directories-just-edit-the-line-you’re"><a href="#If-you-want-to-change-or-add-directories-just-edit-the-line-you’re" class="headerlink" title="If you want to change or add directories, just edit the line you’re"></a>If you want to change or add directories, just edit the line you’re</h1><h1 id="interested-in-All-local-changes-will-be-retained-on-the-next-run"><a href="#interested-in-All-local-changes-will-be-retained-on-the-next-run" class="headerlink" title="interested in. All local changes will be retained on the next run"></a>interested in. All local changes will be retained on the next run</h1><h1 id="Format-is-XDG-xxx-DIR-”-HOME-yyy”-where-yyy-is-a-shell-escaped"><a href="#Format-is-XDG-xxx-DIR-”-HOME-yyy”-where-yyy-is-a-shell-escaped" class="headerlink" title="Format is XDG_xxx_DIR=”$HOME/yyy”, where yyy is a shell-escaped"></a>Format is XDG_xxx_DIR=”$HOME/yyy”, where yyy is a shell-escaped</h1><h1 id="homedir-relative-path-or-XDG-xxx-DIR-”-yyy”-where-yyy-is-an"><a href="#homedir-relative-path-or-XDG-xxx-DIR-”-yyy”-where-yyy-is-an" class="headerlink" title="homedir-relative path, or XDG_xxx_DIR=”/yyy”, where /yyy is an"></a>homedir-relative path, or XDG_xxx_DIR=”/yyy”, where /yyy is an</h1><h1 id="absolute-path-No-other-format-is-supported"><a href="#absolute-path-No-other-format-is-supported" class="headerlink" title="absolute path. No other format is supported."></a>absolute path. No other format is supported.</h1><p>#<br>XDG_DESKTOP_DIR=”$HOME/Desktop”<br>XDG_DOWNLOAD_DIR=”$HOME/Downloads”<br>XDG_TEMPLATES_DIR=”$HOME/Templates”<br>XDG_PUBLICSHARE_DIR=”$HOME/Public”<br>XDG_DOCUMENTS_DIR=”$HOME/Documents”<br>XDG_MUSIC_DIR=”$HOME/Music”<br>XDG_PICTURES_DIR=”$HOME/Pictures”<br>XDG_VIDEOS_DIR=”$HOME/Videos”</p><pre><code>3. 重启或者注销，应该就能生效了</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> linux </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>linux 卸载阿里云云盾.md</title>
-      <link href="/2019/12/03/linux/linux%20%E5%8D%B8%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E7%9B%BE/"/>
-      <url>/2019/12/03/linux/linux%20%E5%8D%B8%E8%BD%BD%E9%98%BF%E9%87%8C%E4%BA%91%E4%BA%91%E7%9B%BE/</url>
-      
-        <content type="html"><![CDATA[<p>1、卸载阿里云盾（安骑士）</p><p>卸载方法很简单，执行下面三段命令即可：</p><pre><code class="shell">wget http://update.aegis.aliyun.com/download/uninstall.shchmod +x uninstall.sh./uninstall.shwget http://update.aegis.aliyun.com/download/quartz_uninstall.shchmod +x quartz_uninstall.sh./quartz_uninstall.sh</code></pre><p>删除残留：</p><pre><code class="shell">pkill aliyun-servicerm -fr /etc/init.d/agentwatch /usr/sbin/aliyun-servicerm -rf /usr/local/aegis*</code></pre><p>2、屏蔽云盾IP</p><p>执行下面命令通过“iptables”防火墙来屏蔽云盾IP：</p><pre><code class="shell">iptables -I INPUT -s 140.205.201.0/28 -j DROPiptables -I INPUT -s 140.205.201.16/29 -j DROPiptables -I INPUT -s 140.205.201.32/28 -j DROPiptables -I INPUT -s 140.205.225.192/29 -j DROPiptables -I INPUT -s 140.205.225.200/30 -j DROPiptables -I INPUT -s 140.205.225.184/29 -j DROPiptables -I INPUT -s 140.205.225.183/32 -j DROPiptables -I INPUT -s 140.205.225.206/32 -j DROPiptables -I INPUT -s 140.205.225.205/32 -j DROPiptables -I INPUT -s 140.205.225.195/32 -j DROPiptables -I INPUT -s 140.205.225.204/32 -j DROP</code></pre><p><a href="https://blog.csdn.net/qjc_501165091/article/details/51225984" target="_blank" rel="noopener">https://blog.csdn.net/qjc_501165091/article/details/51225984</a></p>]]></content>
       
       
       <categories>
