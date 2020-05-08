@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>几个命令.md</title>
+      <link href="/2020/05/08/raspberry/%E5%87%A0%E4%B8%AA%E5%91%BD%E4%BB%A4/"/>
+      <url>/2020/05/08/raspberry/%E5%87%A0%E4%B8%AA%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>pi 获取ip脚本</p></blockquote><pre><code class="bash">#!/bin/bashsleep 10sIP=`ifconfig | grep inet | sed -n &#39;4p&#39;| awk -F &#39; &#39; &#39;{print $2}&#39; | awk -F &#39;:&#39; &#39;{print $2}&#39;`echo $IP`/home/pi/init/pcd8544_rpi ${IP}`</code></pre><blockquote><p>查看温度</p></blockquote><ol><li>方法一</li></ol><pre><code class="shell">pi@RaspberryPi:~ $ /opt/vc/bin/vcgencmd measure_temp #temp=51.5&#39;C 1 2 </code></pre><ol start="2"><li>方法二</li></ol><pre><code class="shell">pi@RaspberryPi:~ $ cat /sys/class/thermal/thermal_zone0/temp # 50464 1 2 此处，除以1000，单位是℃。 1</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> raspberry </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>linux git.md</title>
       <link href="/2020/05/08/linux/linux%20git/"/>
       <url>/2020/05/08/linux/linux%20git/</url>
@@ -255,120 +274,6 @@
     
     
     <entry>
-      <title>go.md</title>
-      <link href="/2020/01/09/undone/go/"/>
-      <url>/2020/01/09/undone/go/</url>
-      
-        <content type="html"><![CDATA[<p><a href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank" rel="noopener">go教程</a></p><p>go build 编译自身包和依赖包<br>go install 编译并安装自身包和依赖包<br>你可以通过如下命令安装：<br>go install codesite.ext/author/goExample/goex<br>包安装到本地它会从远端仓库下载包：检出、编译和安装一气呵成</p><p>go get github.com/NNNN/uc。 下载包</p><p>gofmt 格式化代码<br>在命令行输入 gofmt –w program.go 会格式化该源文件的代码然后将格式化后的代码覆盖原始内容（如果不加参数 -w 则只会打印格式化后的结果而不重写文件）；gofmt -w *.go 会格式化并重写所有 Go 源文件；gofmt map1 会格式化并重写 map1 目录及其子目录下的所有 Go 源文件。</p><p>生成代码文档 godoc使用 go doc args<br>godoc -http=:6060</p><p>go fix 用于将你的 Go 代码从旧的发行版迁移到最新的发行版，它主要负责简单的、重复的、枯燥无味的修改工作，如果像 API 等复杂的函数修改，工具则会给出文件名和代码行数的提示以便让开发人员快速定位并升级代码<br>go test 是一个轻量级的单元测试框架</p><p>反引号<br><code>原始字符串</code></p><h4 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a>环境变量设置</h4><pre><code># 安装目录export GOROOT=go的安装目录# 工作目录export GOPATH=/Users/zhu/go_workspace/s4s:/Users/zhu/go_workspace/go:/Users/zhu/go_workspace/test# 把所有工作目录下的bin目录加入pathexport PATH=$PATH:${GOPATH//://bin:}/bin</code></pre><h4 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h4><ul><li>相对路径     import   “./model”<br>//当前文件同一目录的model目录，但是不建议这种方式import</li><li></li><li>绝对路径    import   “shorturl/model”<br>//加载GOPATH/src/shorturl/model模块</li></ul><ol><li>点操作: import( . “fmt” ) 可以不通过包名来使用其中的项目</li><li>别名操作: import( f “fmt” )</li><li>_操作 import(_“github.com/ziutek/mymysql/godrv” )<blockquote><p>_操作其实只是引入该包。当导入一个包时，它所有的init()函数就会被执行，<br>但有些时候并非真的需要使用这些包，仅仅是希望它的init()函数被执行而已。<br>这个时候就可以使用_操作引用该包了。即使用_操作引用包是无法通过包名来调用包中的导出函数，<br>而是只是为了简单的调用其init函数()。</p></blockquote></li></ol><h4 id="go-get-无反应、访问github-com速度慢、没反应问题的解决方案"><a href="#go-get-无反应、访问github-com速度慢、没反应问题的解决方案" class="headerlink" title="go get 无反应、访问github.com速度慢、没反应问题的解决方案"></a>go get 无反应、访问github.com速度慢、没反应问题的解决方案</h4><p>修改host，下面是一个示例，可以用<a href="https://www.ipaddress.com/ip-lookup" target="_blank" rel="noopener">IP查找工具</a>来获取IP地址设置hosts，速度杠杠的</p><pre><code>vim /etc/hosts192.30.253.112 github.com151.101.185.194 github.global.ssl.fastly.net</code></pre><h4 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h4><ul><li>GOOS：目标平台的操作系统（darwin、freebsd、linux、windows） </li><li>GOARCH：目标平台的体系架构（386、amd64、arm） </li><li>交叉编译不支持 CGO 所以要禁用它</li></ul><blockquote><p>Mac 下编译 Linux 和 Windows 64位可执行程序</p></blockquote><pre><code>CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.goCGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go</code></pre><blockquote><p>Linux 下编译 Mac 和 Windows 64位可执行程序</p></blockquote><pre><code>CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build main.goCGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go</code></pre><blockquote><p>Windows 下编译 Mac 和 Linux 64位可执行程序</p></blockquote><pre><code>SET CGO_ENABLED=0SET GOOS=darwinSET GOARCH=amd64go build main.goSET CGO_ENABLED=0SET GOOS=linuxSET GOARCH=amd64go build main.go</code></pre><p><strong>上面的命令编译 64 位可执行程序，你当然应该也会使用 386 编译 32 位可执行程序</strong></p><h4 id="解决-golang-org-x-下包下载不下来的问题"><a href="#解决-golang-org-x-下包下载不下来的问题" class="headerlink" title="解决 golang org x 下包下载不下来的问题"></a>解决 golang org x 下包下载不下来的问题</h4><pre><code>由于众所周知的原因，golang在下载golang.org的包时会出现访问不了的情况。尤其是x包，很多库都依赖于它。由于x包在github上都有镜像，我们可以使用从github.com上把代码clone到创建的golang。org/x目录上就OK了git clone https://github.com/golang/sys.git</code></pre><pre><code>golang.org/x包放到了https://github.com/golang/text中，下载时需要先在本地建立golang.org/x的目录后，再下载。mkdir -p golang.org/xgit clone https://github.com/golang/text.git或go get github.com/golang/text后将包移到x目录</code></pre><h4 id="init-函数"><a href="#init-函数" class="headerlink" title="init 函数"></a>init 函数</h4><p>变量除了可以在全局声明中初始化，也可以在 init 函数中初始化。这是一类非常特殊的函数，它不能够被人为调用，而是在每个包完成初始化后自动执行，并且执行优先级比 main 函数高。</p><h4 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h4><p>在循环中使用加号 + 拼接字符串并不是最高效的做法，更好的办法是使用函数 strings.Join()（第 4.7.10 节），有没有更好地办法了？有！使用字节缓冲（bytes.Buffer）拼接更加给力</p><h4 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h4><p>如果你需要在应用程序在经过一定时间或周期执行某项任务（事件处理的特例），则可以使用 time.After 或者 time.Ticker：我们将会在第 14.5 节讨论这些有趣的事情。 另外，time.Sleep（Duration d） 可以实现对某个进程（实质上是 goroutine）时长为 d 的暂停</p><h4 id="静态编译"><a href="#静态编译" class="headerlink" title="静态编译"></a>静态编译</h4><pre><code>GOOS=linux CGO_ENABLED=0 go build -ldflags=&quot;-s -w&quot; -o app app.go你可能有人还使用-a参数，它强制重新编译相关的包,一般你不会使用它。-s 忽略符号表和调试信息，-w忽略DWARF符号表，通过这两个参数，可以进一步减少编译的程序的尺寸，更多的参数可以参考go link, 或者 go tool link -help(另一个有用的命令是go tool compile -help)。你也可以使用strip工具对编译的Go程序进行裁剪。本身Go是静态编译的， 对于CGO, 如果设置CGO_ENABLED=0,则完全静态编译，不会再依赖动态库</code></pre><p>golang一个包多个main函数-怎样忽略部分go文件<br>// +build ignore要在package定义之前加上并且后面至少一个空行</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>k8s.md</title>
-      <link href="/2020/01/09/undone/k8s/"/>
-      <url>/2020/01/09/undone/k8s/</url>
-      
-        <content type="html"><![CDATA[<p>docker swarm 集群管理器,不咋用了</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>mysql.md</title>
-      <link href="/2020/01/09/undone/mysql/"/>
-      <url>/2020/01/09/undone/mysql/</url>
-      
-        <content type="html"><![CDATA[<p>mysql数据清空并重置id</p><pre><code>用法：truncate table 表名;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>shell.md</title>
-      <link href="/2020/01/09/undone/shell/"/>
-      <url>/2020/01/09/undone/shell/</url>
-      
-        <content type="html"><![CDATA[<pre><code>cat &lt;&lt; EOF  # EOF为开始结束标志，可以用别的cat &lt;&lt; EOF &gt; test  # 写入文件</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>sqlite.md</title>
-      <link href="/2020/01/09/undone/sqlite/"/>
-      <url>/2020/01/09/undone/sqlite/</url>
-      
-        <content type="html"><![CDATA[<pre><code>获得某张表的建表语句（建表sql）SELECT sql FROM sqlite_master WHERE type=&quot;table&quot; AND name = &quot;t_user&quot;&quot;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vim.md</title>
-      <link href="/2020/01/09/undone/vim/"/>
-      <url>/2020/01/09/undone/vim/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>py select.md</title>
       <link href="/2020/01/09/python/libs/py%20select/"/>
       <url>/2020/01/09/python/libs/py%20select/</url>
@@ -419,25 +324,6 @@
       <categories>
           
           <category> linux </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>rust.md</title>
-      <link href="/2019/12/30/undone/rust/"/>
-      <url>/2019/12/30/undone/rust/</url>
-      
-        <content type="html"><![CDATA[<p><a href="https://kaisery.github.io/trpl-zh-cn/ch01-01-installation.html" target="_blank" rel="noopener">rust教程</a></p><p>rustup: 一个管理 Rust 版本和相关工具的命令行工具</p><p>安装： curl <a href="https://sh.rustup.rs" target="_blank" rel="noopener">https://sh.rustup.rs</a> -sSf | sh</p><p>更新 Rust</p><p>rustup update</p><p>卸载 Rust 和 rustup</p><p>rustup self uninstall</p><p>编译运行</p><p>rustc file.rs</p><p>fn main() {<br>    println!(“Hello, world!”);<br>}</p><p>当看到符号 ! 的时候，就意味着调用的是宏而不是普通函数。</p><p>rustfmt: 代码文件格式化工具</p><p>cargo: 是rust的构建系统和包管理器</p><p>cargo build: 编译，debug<br>cargo run: 编译运行<br>cargo check: 检查是否能成功编译<br>cargo build –release: 正式发布<br>cargo new movie-lib –lib: 创建lib项目，库工程crate<br>cargo new movie-lib-test –bin</p><p>语法</p><p>let x = 5; 定义不可变变量<br>let mut y = 0; 定义可变变量</p><p>换源：为rust crates.io换上国内中科大的源<br>中科大说明： <a href="https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates" target="_blank" rel="noopener">https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates</a></p><ol><li>进入当前用户的 .cargo 目录 cd ~/.cargo</li><li>新建名字叫 config 的文件</li><li>编辑 config 文件写入</li></ol><pre><code class="bash">[source.crates-io]registry = &quot;https://github.com/rust-lang/crates.io-index&quot;replace-with = &#39;ustc&#39;[source.ustc]registry = &quot;git://mirrors.ustc.edu.cn/crates.io-index&quot;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
           
       </categories>
       
@@ -514,44 +400,6 @@
       <categories>
           
           <category> python </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>lua.md</title>
-      <link href="/2019/12/17/undone/lua/"/>
-      <url>/2019/12/17/undone/lua/</url>
-      
-        <content type="html"><![CDATA[<p>注释<br>单行注释<br>两个减号是单行注释:</p><p>–<br>多行注释<br>–[[<br> 多行注释<br> 多行注释<br> –]]</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>py.md</title>
-      <link href="/2019/12/17/undone/py/"/>
-      <url>/2019/12/17/undone/py/</url>
-      
-        <content type="html"><![CDATA[<p>一次批量替换</p><p>result.translate(str.maketrans(‘①②③④⑤⑥⑦⑧⑨’, ‘123456789’))</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> undone </category>
           
       </categories>
       
@@ -1582,49 +1430,11 @@
     
     
     <entry>
-      <title>pi 查看温度.md</title>
-      <link href="/2019/12/03/raspberry/pi%20%E6%9F%A5%E7%9C%8B%E6%B8%A9%E5%BA%A6/"/>
-      <url>/2019/12/03/raspberry/pi%20%E6%9F%A5%E7%9C%8B%E6%B8%A9%E5%BA%A6/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>方法一</p></blockquote><pre><code class="shell">pi@RaspberryPi:~ $ /opt/vc/bin/vcgencmd measure_temp #temp=51.5&#39;C 1 2 </code></pre><blockquote><p>方法二</p></blockquote><pre><code class="shell">pi@RaspberryPi:~ $ cat /sys/class/thermal/thermal_zone0/temp # 50464 1 2 此处，除以1000，单位是℃。 1</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> raspberry </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>pi 网络.md</title>
       <link href="/2019/12/03/raspberry/pi%20%E7%BD%91%E7%BB%9C/"/>
       <url>/2019/12/03/raspberry/pi%20%E7%BD%91%E7%BB%9C/</url>
       
         <content type="html"><![CDATA[<blockquote><p>启用ssh,默认关机</p></blockquote><pre><code>刻录系统完成后在/boot分区（根目录）新建  ssh 文件即可</code></pre><blockquote><p>还没连接到树莓派，配置wifi,wifi配置 wpa_supplicant</p></blockquote><p>在 boot 分区，也就是树莓派的 /boot 目录下新建 wpa_supplicant.conf 文件</p><pre><code>country=CNctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdevupdate_config=1network={    ssid=&quot;301301&quot;    psk=&quot;18367116191&quot;    key_mgmt=WPA-PSK    priority=1}network={    ssid=&quot;TP-LINK_954D&quot;    psk=&quot;vvcn1101&quot;    key_mgmt=WPA-PSK    priority=2}#如果你的 WiFi 没有密码network={    ssid=&quot;你的无线网络名称（ssid）&quot;    key_mgmt=NONE}#如果你的 WiFi 使用WEP加密network={    ssid=&quot;你的无线网络名称（ssid）&quot;    key_mgmt=NONE    wep_key0=&quot;你的wifi密码&quot;}#如果你的 WiFi 使用WPA/WPA2加密network={    ssid=&quot;你的无线网络名称（ssid）&quot;    key_mgmt=WPA-PSK    psk=&quot;你的wifi密码&quot;}</code></pre><p>说明：</p><ul><li>ssid:网络的ssid</li><li>psk:密码</li><li>priority:连接优先级，数字越大优先级越高（不可以是负数）</li><li>scan_ssid:连接隐藏WiFi时需要指定该值为1</li></ul><p>如果你不清楚 WiFi 的加密模式，可以在安卓手机上用 root explorer 打开 /data/misc/wifi/wpa/wpa_supplicant.conf，查看 WiFi 的信息。</p><blockquote><p>有线连接,已经ssh连上的情况</p></blockquote><pre><code>iwlist scan  # 查看wifi信息方法一：配置连接到某个热点:# 编辑wifi文件sudo vim /etc/wpa_supplicant/wpa_supplicant.conf# 在该文件最后添加下面的话network={    ssid=&quot;WIFINAME&quot;    psk=&quot;password&quot;}# 引号部分分别为wifi的名字和密码# 保存文件后几秒钟应该就会自动连接到该wifi# 查看是否连接成功ifconfigwlan0方法二：配置树梅派3无线wifi连接修改/etc/network/interface文件auto loiface lo inet loopbackiface eth0 inet dhcpauto wlan0allow-hotplug wlan0iface wlan0 inet dhcpwpa-ssid  接入AP的名字wpa－psk  接入AP的密码保存文件，然后运行如下命令重新启动网络！sudo /etc/init.d/networking restart</code></pre><p>获取ip</p><pre><code>命令行输入 arp -a可以看到同局域网的设备的 ip和mac地址一般树莓派的mac地址是b开头的</code></pre><p>设置静态ip</p><p>一、使用路由器设置</p><p>二、修改/etc/network/interfaces文件设置</p><pre><code>终端下输入pi@raspberrypi:~ $ sudo nano /etc/network/interfaces原先网卡IP是从DHCP服务器获取的，找到下面这一句iface eth0 inet dhcp我们需要改为静态IP，将这一句替换为如下内容,如果找不到这一句就直接填写下面的内容到文件最后---iface eth0 inet static#固定IP地址address 192.168.1.201#掩码，可以登录路由器查看netmask 255.255.255.0#网关，可以登录路由器查看gateway 192.168.1.1#DNS服务器dns-nameservers 114.114.114.114---eth0是有线网卡，如果连接的是无线网络，把eth0改成wlan0---iface wlan0 inet staticaddress 192.168.1.202netmask 255.255.255.0gateway 192.168.1.1dns-nameservers 114.114.114.114---</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> raspberry </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>pi 获取ip脚本.md</title>
-      <link href="/2019/12/03/raspberry/pi%20%E8%8E%B7%E5%8F%96ip%E8%84%9A%E6%9C%AC/"/>
-      <url>/2019/12/03/raspberry/pi%20%E8%8E%B7%E5%8F%96ip%E8%84%9A%E6%9C%AC/</url>
-      
-        <content type="html"><![CDATA[<pre><code class="bash">#!/bin/bashsleep 10sIP=`ifconfig | grep inet | sed -n &#39;4p&#39;| awk -F &#39; &#39; &#39;{print $2}&#39; | awk -F &#39;:&#39; &#39;{print $2}&#39;`echo $IP`/home/pi/init/pcd8544_rpi ${IP}`</code></pre>]]></content>
       
       
       <categories>

@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>linux df.md | Arthur</title>
+  <title>几个命令.md | Arthur</title>
   <meta name="keywords" content="">
-  <meta name="description" content="linux df.md | Arthur">
+  <meta name="description" content="几个命令.md | Arthur">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="about">
 <meta property="og:type" content="website">
@@ -1495,9 +1495,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-linux/cmd/linux df" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-raspberry/几个命令" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">linux df.md</h1>
+        <h1 class="article-title">几个命令.md</h1>
     
     <div class="article-meta">
         
@@ -1505,9 +1505,7 @@
         
         <span class="book">
             
-                <a  data-rel="linux">linux</a>/
-            
-                <a  data-rel="cmd">cmd</a>
+                <a  data-rel="raspberry">raspberry</a>
             
         </span>
         
@@ -1515,7 +1513,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2020-05-08 17:21:46'>2019-12-03 17:46</time>
+        创建时间:<time class="date" title='更新时间: 2020-05-08 17:21:46'>2020-05-08 17:21</time>
         
     </div>
     <div class="article-meta">
@@ -1543,18 +1541,28 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>df</p>
+<p>pi 获取ip脚本</p>
 </blockquote>
-<pre><code class="shell"># 可以用来查看分区的文件系统
-df -T
+<pre><code class="bash">#!/bin/bash
 
-# df命令可以显示目前所有文件系统的可用空间及使用情形，请看下列这个例子：
-df -h
-# 查看系统中文件的使用情况
-df -h
-# 查看当前目录下各个文件及目录占用空间大小
-du -sh *
+sleep 10s
+IP=`ifconfig | grep inet | sed -n &#39;4p&#39;| awk -F &#39; &#39; &#39;{print $2}&#39; | awk -F &#39;:&#39; &#39;{print $2}&#39;`
+echo $IP
+`/home/pi/init/pcd8544_rpi ${IP}`
 </code></pre>
+<blockquote>
+<p>查看温度</p>
+</blockquote>
+<ol>
+<li>方法一</li>
+</ol>
+<pre><code class="shell">pi@RaspberryPi:~ $ /opt/vc/bin/vcgencmd measure_temp
+ #temp=51.5&#39;C 1 2 </code></pre>
+<ol start="2">
+<li>方法二</li>
+</ol>
+<pre><code class="shell">pi@RaspberryPi:~ $ cat /sys/class/thermal/thermal_zone0/temp 
+# 50464 1 2 此处，除以1000，单位是℃。 1</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 仅供参考 </span>
